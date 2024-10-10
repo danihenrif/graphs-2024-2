@@ -1,10 +1,6 @@
 package br.ufrn.imd;
 
 import br.ufrn.imd.util.GraphLoader;
-import br.ufrn.imd.util.GraphUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,19 +18,18 @@ public class Main {
         System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
 
         // Questão 2 - Matriz de Adjacência para Lista de Adjacência
-        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
+        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(3);
         System.out.println("Adjacency List : \n" +
                 adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert)
         );
 
         // Questão 3 - Matriz de Adjacência para Matriz de Incidência
-        int[][] incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
-        System.out.println("Incidence Matrix:");
-        for (int i = 0; i < incidenceMatrix.length; i++) {
-            for (int j = 0; j < incidenceMatrix[i].length; j++) {
-                System.out.print(incidenceMatrix[i][j] + " ");
-            }
-            System.out.println();
-        }
+        //adjacencyMatrixToConvert.setDirected(true);
+        System.out.println("Adjacency Matrix to Convert:");
+        System.out.println(adjacencyMatrixToConvert.toString());
+
+        System.out.println("Converted, result :");
+        IncidenceMatrix incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
+        System.out.println(incidenceMatrix.toString());
     }
 }
