@@ -5,7 +5,7 @@ public class Main {
         AdjacencyList adjacencyList = new AdjacencyList();
         Graph graph = new Graph(adjacencyList);
 
-        graph.loadGraphFromFile("src/grafo" + ".txt");
+        graph.loadGraphFromFile("src/grafo2" + ".txt");
 
         graph.printGraph();
         System.out.println(graph.removeVertex(1));
