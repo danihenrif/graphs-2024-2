@@ -55,7 +55,7 @@ public class AdjacencyMatrix {
         return this;
     }
 
-    public AdjacencyList undirectedAdjacencyMatrixToAdjacencyList(AdjacencyMatrix adjMatrix) {
+    public static AdjacencyList undirectedAdjacencyMatrixToAdjacencyList(AdjacencyMatrix adjMatrix) {
         GraphUtils.validateAdjacencyMatrix(adjMatrix);
 
         Integer numberOfVertex = adjMatrix.getMatrix().size();
