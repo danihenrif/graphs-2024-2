@@ -1,23 +1,25 @@
 package br.ufrn.imd;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 public class Graph {
     private AdjacencyList adjacencyList;
+    private AdjacencyMatrix adjacencyMatrix;
 
-    Graph(AdjacencyList adjacencyList) {
-        this.adjacencyList = adjacencyList;
+
+    public Graph() {
+        this.adjacencyList = new AdjacencyList();
+        this.adjacencyMatrix = new AdjacencyMatrix();
     }
 
-    public String loadGraphFromFile(String filename) {
-        return this.adjacencyList.loadGraphFromFile(filename);
+    public void loadGraphFromFile(String filename) {
+        this.adjacencyList.loadGraphFromFile(filename);
+        //this.adjacencyMatrix.loadGraphFromFile(filename);
     }
 
-    public void printGraph(){
-        this.adjacencyList.printGraph();
+    @Override
+    public String toString() {
+        return adjacencyList.toString() + "\n" + adjacencyMatrix.toString();
     }
 
     public String addVertex(Integer vertex) {
@@ -26,6 +28,16 @@ public class Graph {
 
     public String removeVertex(Integer vertex) {
         return adjacencyList.removeVertex(vertex);
+    }
+
+    public String undirectedAdjacencyMatrixToAdjacencyList(AdjacencyMatrix adjMatrix) {
+        AdjacencyList aux = adjacencyMatrix.undirectedAdjacencyMatrixToAdjacencyList(adjMatrix);
+        if(aux != null) {
+            this.adjacencyList = aux;
+            this.adjacencyMatrix = adjMatrix;
+            return "Conversion successful. Adjacency list:\n" + this.adjacencyList.toString();
+        }
+        return "Conversion failed";
     }
 
 }

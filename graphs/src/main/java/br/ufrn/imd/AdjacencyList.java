@@ -3,18 +3,62 @@ package br.ufrn.imd;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AdjacencyList {
     private Map<Integer, Set<Integer>> adjacencyList; // Usando Integer para rótulos
     private boolean isDirected;
 
     public AdjacencyList() {
-        this.adjacencyList = new HashMap<>();
+       this.adjacencyList = new HashMap<>();
     }
+
+    public AdjacencyList(Map<Integer, Set<Integer>> adjacencyList) {
+        this.adjacencyList = adjacencyList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Map.Entry<Integer, Set<Integer>> entry : adjacencyList.entrySet()) {
+            sb.append(entry.getKey()).append(": ");
+
+            Set<Integer> adjacent = entry.getValue();
+            if (adjacent.isEmpty()) {
+                sb.append("Nenhum vizinho");
+            } else {
+                for (Integer a : adjacent) {
+                    sb.append(a).append(" ");
+                }
+            }
+            sb.append(System.lineSeparator());
+        }
+
+        return sb.toString();
+    }
+
+    public String addVertex(Integer vertex) {
+        if (adjacencyList.containsKey(vertex)) {
+            return "Vértice já existe!";
+        }
+        adjacencyList.put(vertex, new HashSet<>());
+        return "Vértice " + vertex + " adicionado com sucesso!";
+    }
+
+    public String removeVertex(Integer vertex) {
+        if (!adjacencyList.containsKey(vertex)) {
+            return "Vértice não encontrado!";
+        }
+        // Remover todas as arestas associadas ao vértice
+        adjacencyList.remove(vertex);
+        for (Set<Integer> adjacent : adjacencyList.values()) {
+            adjacent.remove(vertex);
+        }
+        return "Vértice " + vertex + " removido com sucesso!";
+    }
+
+
 
     public String loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -87,42 +131,6 @@ public class AdjacencyList {
             }
         } else {
             System.err.println("Formato de aresta inválido: " + edge);
-        }
-    }
-
-
-    public String addVertex(Integer vertex) {
-        if (adjacencyList.containsKey(vertex)) {
-            return "Vértice já existe!";
-        }
-        adjacencyList.put(vertex, new HashSet<>());
-        return "Vértice " + vertex + " adicionado com sucesso!";
-    }
-
-    public String removeVertex(Integer vertex) {
-        if (!adjacencyList.containsKey(vertex)) {
-            return "Vértice não encontrado!";
-        }
-        // Remover todas as arestas associadas ao vértice
-        adjacencyList.remove(vertex);
-        for (Set<Integer> adjacent : adjacencyList.values()) {
-            adjacent.remove(vertex);
-        }
-        return "Vértice " + vertex + " removido com sucesso!";
-    }
-
-    public void printGraph() {
-        for (Map.Entry<Integer, Set<Integer>> entry : adjacencyList.entrySet()) {
-            System.out.print(entry.getKey() + ": ");
-            Set<Integer> adjacent = entry.getValue();
-            if (adjacent.isEmpty()) {
-                System.out.print("Nenhum vizinho");
-            } else {
-                for (Integer a : adjacent) {
-                    System.out.print(a + " ");
-                }
-            }
-            System.out.println();
         }
     }
 
