@@ -23,6 +23,8 @@ public class Main {
 
         //Questão 2
         AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
-        System.out.println(graph.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert));
+        System.out.println( "Adjacency List : \n" +
+                adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert)
+        );
     }
 }

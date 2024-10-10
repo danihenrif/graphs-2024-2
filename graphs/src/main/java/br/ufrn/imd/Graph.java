@@ -28,13 +28,5 @@ public class Graph {
         return adjacencyList.removeVertex(vertex);
     }
 
-    public String undirectedAdjacencyMatrixToAdjacencyList(AdjacencyMatrix adjMatrix) {
-        AdjacencyList aux = AdjacencyMatrix.undirectedAdjacencyMatrixToAdjacencyList(adjMatrix);
-        if(aux != null) {
-            this.adjacencyList = aux;
-            return "Conversion successful. Adjacency list:\n" + this.adjacencyList.toString();
-        }
-        return "Conversion failed";
-    }
 
 }
