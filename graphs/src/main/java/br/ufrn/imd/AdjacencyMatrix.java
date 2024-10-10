@@ -2,9 +2,6 @@ package br.ufrn.imd;
 
 import br.ufrn.imd.util.GraphUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -33,6 +30,10 @@ public class AdjacencyMatrix {
         }
 
         return result.toString();
+    }
+
+    public void setDirected(boolean directed) {
+        isDirected = directed;
     }
 
     public AdjacencyMatrix generateRandomAdjacencyMatrix(Integer size) {
@@ -79,6 +80,41 @@ public class AdjacencyMatrix {
 
         return new AdjacencyList(adjlist); // Retorna a lista de adjacência construída
     }
+
+    public IncidenceMatrix adjacencyMatrixToIncidenceMatrix() {
+        int numberOfVertices = matrix.size();
+        int numberOfEdges = 0;
+    
+        // Contar o número total de arestas
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (matrix.get(i).get(j) == 1 && i != j) {
+                    numberOfEdges++;
+                }
+            }
+        }
+    
+        // Criar a matriz de incidência
+        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertices,numberOfEdges);
+        int edgeIndex = 0;
+
+        // Preencher a matriz de incidência
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if(edgeIndex < numberOfEdges) {
+                    if (matrix.get(i).get(j) == 1) {
+                        incidenceMatrix.getMatrix().get(edgeIndex).set(i, -1); // i é a origem da aresta
+                        incidenceMatrix.getMatrix().get(edgeIndex).set(j, 1);  // j é o destino da aresta
+                        edgeIndex++;
+                    }
+                }
+            }
+        }
+    
+        // Retornar a matriz de incidência
+        return incidenceMatrix;
+    }
+    
 
     /*public void loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
