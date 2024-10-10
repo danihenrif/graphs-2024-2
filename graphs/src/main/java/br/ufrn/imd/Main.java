@@ -1,5 +1,6 @@
 package br.ufrn.imd;
 
+import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
 
 import java.util.ArrayList;
@@ -8,8 +9,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-
-        graph.loadGraphFromFile("src/grafo2" + ".txt");
+        GraphLoader.load(graph, "src/grafo2" + ".txt");
 
         //Questão 1
         System.out.println(graph.toString());
@@ -20,6 +20,7 @@ public class Main {
         System.out.println();
         System.out.println();
 
+        System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
 
         //Questão 2
         AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);

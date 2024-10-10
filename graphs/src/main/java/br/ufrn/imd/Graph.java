@@ -5,14 +5,12 @@ import java.util.*;
 public class Graph {
     private AdjacencyList adjacencyList;
 
-
     public Graph() {
         this.adjacencyList = new AdjacencyList();
     }
 
-    public void loadGraphFromFile(String filename) {
-        this.adjacencyList.loadGraphFromFile(filename);
-        //this.adjacencyMatrix.loadGraphFromFile(filename);
+    public AdjacencyList getAdjacencyList() {
+        return adjacencyList;
     }
 
     @Override
