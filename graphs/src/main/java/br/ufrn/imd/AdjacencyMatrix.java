@@ -80,6 +80,39 @@ public class AdjacencyMatrix {
         return new AdjacencyList(adjlist); // Retorna a lista de adjacência construída
     }
 
+    public int[][] adjacencyMatrixToIncidenceMatrix() {
+        int numberOfVertices = matrix.size();
+        int numberOfEdges = 0;
+    
+        // Contar o número total de arestas
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (matrix.get(i).get(j) == 1) {
+                    numberOfEdges++;
+                }
+            }
+        }
+    
+        // Criar a matriz de incidência
+        int[][] incidenceMatrix = new int[numberOfVertices][numberOfEdges];
+        int edgeIndex = 0;
+    
+        // Preencher a matriz de incidência
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (matrix.get(i).get(j) == 1) {
+                    incidenceMatrix[i][edgeIndex] = -1; // i é a origem da aresta
+                    incidenceMatrix[j][edgeIndex] = 1;  // j é o destino da aresta
+                    edgeIndex++;
+                }
+            }
+        }
+    
+        // Retornar a matriz de incidência
+        return incidenceMatrix;
+    }
+    
+
     /*public void loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             // Ler se é direcionado ou não
