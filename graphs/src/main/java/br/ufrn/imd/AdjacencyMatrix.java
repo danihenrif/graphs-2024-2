@@ -13,6 +13,10 @@ public class AdjacencyMatrix {
         this.matrix = new ArrayList<>();
     }
 
+    public AdjacencyMatrix(List<List<Integer>> matrix) {
+        this.matrix = matrix;
+    }
+
     public List<List<Integer>> getMatrix() {
         return matrix;
     }

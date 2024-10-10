@@ -22,7 +22,7 @@ public class DirectStar {
         this.pont = new Integer[numberOfVertex + 1];
 
         pont[0] = 0;
-        pont[numberOfVertex] = numberOfArchs + 1;
+        pont[numberOfVertex] = numberOfArchs;
     }
 
     public Map<Integer, List<Integer>> getArches() {
