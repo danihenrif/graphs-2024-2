@@ -82,25 +82,17 @@ public class AdjacencyMatrix {
     }
 
     public IncidenceMatrix adjacencyMatrixToIncidenceMatrix() {
-        int numberOfVertices = matrix.size();
-        int numberOfEdges = 0;
-    
-        // Contar o número total de arestas
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < numberOfVertices; j++) {
-                if (matrix.get(i).get(j) == 1 && i != j) {
-                    numberOfEdges++;
-                }
-            }
-        }
-    
+        Integer[] numberOfVertixAndEdges = GraphUtils.numberOfVertixAndEdges(matrix);
+        Integer numberOfVertix = numberOfVertixAndEdges[0];
+        Integer numberOfEdges = numberOfVertixAndEdges[1];
+
         // Criar a matriz de incidência
-        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertices,numberOfEdges);
+        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertix,numberOfEdges);
         int edgeIndex = 0;
 
         // Preencher a matriz de incidência
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < numberOfVertices; j++) {
+        for (int i = 0; i < numberOfVertix; i++) {
+            for (int j = 0; j < numberOfVertix; j++) {
                 if(edgeIndex < numberOfEdges) {
                     if (matrix.get(i).get(j) == 1) {
                         incidenceMatrix.getMatrix().get(edgeIndex).set(i, -1); // i é a origem da aresta
@@ -113,6 +105,30 @@ public class AdjacencyMatrix {
     
         // Retornar a matriz de incidência
         return incidenceMatrix;
+    }
+
+    public DirectStar adjacencyMatrixToDirectStar() {
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertixAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfArchs = numberOfVertexAndEdges[1];
+
+        DirectStar directStar = new DirectStar(numberOfArchs, numberOfVertex);
+        int archIndex = 0;
+
+        // Extrair arcos
+        for (int i = 0; i < numberOfVertex; i++) {
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(i).get(j) == 1 && archIndex < numberOfArchs) {
+                    directStar.getArches().get(archIndex).add(i);
+                    directStar.getArches().get(archIndex).add(j);
+                    archIndex++;
+                }
+            }
+        }
+
+
+
+        return directStar;
     }
     
 

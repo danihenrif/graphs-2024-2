@@ -31,5 +31,13 @@ public class Main {
         System.out.println("Converted, result :");
         IncidenceMatrix incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
         System.out.println(incidenceMatrix.toString());
+
+        //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
+        System.out.println("Adjacency Matrix to Convert to Direct Star:");
+        System.out.println(adjacencyMatrixToConvert.toString());
+
+        System.out.println("Converted, result :");
+        DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
+        System.out.println(directStar);
     }
 }

@@ -37,4 +37,22 @@ public class GraphUtils {
             }
         }
     }
+
+    public static Integer[] numberOfVertixAndEdges(List<List<Integer>> matrix){
+        int numberOfVertices = matrix.size();
+        int numberOfEdges = 0;
+
+        // Contar o número total de arestas
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (matrix.get(i).get(j) == 1 && i != j) {
+                    numberOfEdges++;
+                }
+            }
+        }
+
+        Integer[] vertixAndEdges =  new Integer[]{numberOfVertices,numberOfEdges};
+
+        return vertixAndEdges;
+    }
 }
