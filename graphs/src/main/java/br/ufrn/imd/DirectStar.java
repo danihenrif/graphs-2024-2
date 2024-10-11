@@ -10,16 +10,16 @@ public class DirectStar {
         this.arches = new TreeMap<>();
     }
 
-    public DirectStar(Integer numberOfArchs, Integer numberOfVertex) {
+    public DirectStar(Integer numberOfArches, Integer numberOfVertex) {
         this();
-        for (int i = 0; i < numberOfArchs; i++) {
+        for (int i = 0; i < numberOfArches; i++) {
             arches.put(i, new ArrayList<>());
         }
 
         this.pont = new Integer[numberOfVertex + 1];
 
         pont[0] = 0;
-        pont[numberOfVertex] = numberOfArchs;
+        pont[numberOfVertex] = numberOfArches;
     }
 
     public Integer[] getPont() {
@@ -38,9 +38,12 @@ public class DirectStar {
             List<Integer> vertices = entry.getValue();
             sb.append(vertices.get(0)).append(" -> ").append(vertices.get(1)).append("\n");
         }
-        sb.append("Pont: ").append("\n");
+        sb.append("Pont: ").append("\n[");
         for (int i = 0; i < pont.length; i++) {
-            sb.append(pont[i]).append(",");
+            if(i == pont.length - 1){
+                sb.append(pont[i]).append("]");
+            }
+            else sb.append(pont[i]).append(",");
         }
         return sb.toString();
     }

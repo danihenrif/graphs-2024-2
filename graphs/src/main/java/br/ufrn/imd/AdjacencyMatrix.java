@@ -86,17 +86,17 @@ public class AdjacencyMatrix {
     }
 
     public IncidenceMatrix adjacencyMatrixToIncidenceMatrix() {
-        Integer[] numberOfVertixAndEdges = GraphUtils.numberOfVertixAndEdges(matrix);
-        Integer numberOfVertix = numberOfVertixAndEdges[0];
-        Integer numberOfEdges = numberOfVertixAndEdges[1];
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfEdges = numberOfVertexAndEdges[1];
 
         // Criar a matriz de incidência
-        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertix,numberOfEdges);
+        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertex,numberOfEdges);
         int edgeIndex = 0;
 
         // Preencher a matriz de incidência
-        for (int i = 0; i < numberOfVertix; i++) {
-            for (int j = 0; j < numberOfVertix; j++) {
+        for (int i = 0; i < numberOfVertex; i++) {
+            for (int j = 0; j < numberOfVertex; j++) {
                 if(edgeIndex < numberOfEdges) {
                     if (matrix.get(i).get(j) == 1) {
                         incidenceMatrix.getMatrix().get(edgeIndex).set(i, -1); // i é a origem da aresta
@@ -112,39 +112,30 @@ public class AdjacencyMatrix {
     }
 
     public DirectStar adjacencyMatrixToDirectStar() {
-        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertixAndEdges(matrix);
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
         Integer numberOfVertex = numberOfVertexAndEdges[0];
-        Integer numberOfArchs = numberOfVertexAndEdges[1];
+        Integer numberOfArches = numberOfVertexAndEdges[1];
 
-        DirectStar directStar = new DirectStar(numberOfArchs, numberOfVertex);
-        int archIndex = 0;
+        DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
+        //Extrair os arcos da matriz de adjacência
+        GraphUtils.extractArches(this.matrix, directStar, numberOfVertex, numberOfArches);
 
-        // Extrair arcos
-        for (int i = 0; i < numberOfVertex; i++) {
-            for (int j = 0; j < numberOfVertex; j++) {
-                if(matrix.get(i).get(j) == 1 && archIndex < numberOfArchs) {
-                    directStar.getArches().get(archIndex).add(i);
-                    directStar.getArches().get(archIndex).add(j);
-                    archIndex++;
-                }
+        //Preenche o miolo da pont
+        Integer searchedVertex = 1;
+        for (Integer key : directStar.getArches().keySet()) {
+            //Se o vértice origem for maior que vértice buscado pula
+            //o vértice pois ele não é origem de nenhum arco
+            if(directStar.getArches().get(key).get(0) > searchedVertex){
+                searchedVertex++;
+            }
+            if (directStar.getArches().get(key).get(0) == searchedVertex && searchedVertex < numberOfVertex) {
+                //se achar o vértice como origem preenche a pont dele com o numero do arco
+                directStar.getPont()[searchedVertex] = key;
+                searchedVertex++;
             }
         }
 
-        Integer vertix = 1;
-
-        for (int i = 0; i < numberOfVertex - 1; i++) {
-            for (Integer key : directStar.getArches().keySet()) {
-                if (directStar.getArches().get(key).get(0) == vertix && vertix < numberOfVertex) {
-                    directStar.getPont()[vertix] = key;
-                    vertix++;
-                }
-            }
-            if(vertix == numberOfVertex){
-                break;
-            }
-            vertix++;
-        }
-
+        //Preencher as pont q não foram achadas com o valor dos vizinhos
         for(int i = 1 ; i < directStar.getPont().length; i++) {
             if(directStar.getPont()[i] == null){
                 directStar.getPont()[i] = directStar.getPont()[i+1];

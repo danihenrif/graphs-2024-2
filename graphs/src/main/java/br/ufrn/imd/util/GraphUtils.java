@@ -1,6 +1,7 @@
 package br.ufrn.imd.util ;
 
 import br.ufrn.imd.AdjacencyMatrix;
+import br.ufrn.imd.DirectStar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class GraphUtils {
         }
     }
 
-    public static Integer[] numberOfVertixAndEdges(List<List<Integer>> matrix){
+    public static Integer[] numberOfVertexAndEdges(List<List<Integer>> matrix){
         int numberOfVertices = matrix.size();
         int numberOfEdges = 0;
 
@@ -51,8 +52,23 @@ public class GraphUtils {
             }
         }
 
-        Integer[] vertixAndEdges =  new Integer[]{numberOfVertices,numberOfEdges};
+        Integer[] vertexAndEdges =  new Integer[]{numberOfVertices,numberOfEdges};
 
-        return vertixAndEdges;
+        return vertexAndEdges;
+    }
+
+    public static void extractArches(List<List<Integer>> matrix, DirectStar directStar, Integer numberOfVertex, Integer numberOfArches){
+        int archIndex = 0;
+
+        // Extrair arcos
+        for (int i = 0; i < numberOfVertex; i++) {
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(i).get(j) == 1 && archIndex < numberOfArches) {
+                    directStar.getArches().get(archIndex).add(i);
+                    directStar.getArches().get(archIndex).add(j);
+                    archIndex++;
+                }
+            }
+        }
     }
 }
