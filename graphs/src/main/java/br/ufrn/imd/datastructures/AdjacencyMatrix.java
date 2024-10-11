@@ -179,6 +179,47 @@ public class AdjacencyMatrix {
         return reverseStar;
     }
     
+    public List<Integer> generatePrufferCode() {
+        Integer numberOfVertex = matrix.size();
+        List<Integer> prufferCode = new ArrayList<>();
+    
+        // Criar uma lista para armazenar o grau de cada vértice
+        Integer[] degree = new Integer[numberOfVertex];
+        for (int i = 0; i < numberOfVertex; i++) {
+            degree[i] = 0; // Inicializando o grau
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (matrix.get(i).get(j) == 1) {
+                    degree[i]++;
+                }
+            }
+        }
+    
+        // Gerar o código de Prüffer
+        for (int i = 0; i < numberOfVertex - 2; i++) {
+            // Encontrar o menor vértice com grau 1
+            Integer leaf = -1;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (degree[j] == 1) {
+                    leaf = j;
+                    break;
+                }
+            }
+    
+            // Encontrar o vizinho do vértice folha
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (matrix.get(leaf).get(j) == 1) {
+                    prufferCode.add(j);
+                    degree[j]--;  // Reduz o grau do vizinho
+                    break;
+                }
+            }
+    
+            // Remover a folha
+            degree[leaf] = 0;
+        }
+    
+        return prufferCode;
+    }    
 
     /*public void loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {

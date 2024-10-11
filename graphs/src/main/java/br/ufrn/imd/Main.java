@@ -76,5 +76,22 @@ public class Main {
 
         System.out.println("Converted, result :");
         System.out.println(reverseStar);
+
+        // Questão 5 - Gerar Código de Prüffer
+        List<List<Integer>> treeMatrix = new ArrayList<>();
+        treeMatrix.add(Arrays.asList(0, 1, 1, 0, 0));
+        treeMatrix.add(Arrays.asList(1, 0, 0, 1, 1));
+        treeMatrix.add(Arrays.asList(1, 0, 0, 0, 0));
+        treeMatrix.add(Arrays.asList(0, 1, 0, 0, 0));
+        treeMatrix.add(Arrays.asList(0, 1, 0, 0, 0));
+
+        // Utilizando o construtor existente para inicializar a matriz
+        AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(treeMatrix);
+        System.out.println("Matriz de Adjacência da Árvore:");
+        System.out.println(treeAdjacencyMatrix.toString());
+
+        List<Integer> prufferCode = treeAdjacencyMatrix.generatePrufferCode();
+        System.out.println("Código de Prüffer:");
+        System.out.println(prufferCode);
     }
 }
