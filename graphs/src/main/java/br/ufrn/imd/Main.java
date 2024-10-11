@@ -3,8 +3,10 @@ package br.ufrn.imd;
 import br.ufrn.imd.datastructures.AdjacencyMatrix;
 import br.ufrn.imd.datastructures.DirectStar;
 import br.ufrn.imd.datastructures.IncidenceMatrix;
+import br.ufrn.imd.datastructures.ReverseStar;
 import br.ufrn.imd.util.GraphLoader;
 
+import javax.sound.sampled.ReverbType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,5 +68,13 @@ public class Main {
 
         System.out.println("Converted, result :");
         System.out.println(directStar1);
+
+        System.out.println("Adjacency Matrix to Convert to Reverse Star:");
+        System.out.println(adjacencyMatrix.toString());
+
+        ReverseStar reverseStar = adjacencyMatrix.adjacencyMatrixToReverseStar();
+
+        System.out.println("Converted, result :");
+        System.out.println(reverseStar);
     }
 }

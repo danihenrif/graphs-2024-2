@@ -159,10 +159,10 @@ public class AdjacencyMatrix {
         for (Integer key : reverseStar.getArches().keySet()) {
             //Se o vértice origem for maior que vértice buscado pula
             //o vértice pois ele não é origem de nenhum arco
-            if(reverseStar.getArches().get(key).get(0) > searchedVertex){
+            if(reverseStar.getArches().get(key).get(1) > searchedVertex){
                 searchedVertex++;
             }
-            if (reverseStar.getArches().get(key).get(0) == searchedVertex && searchedVertex < numberOfVertex) {
+            if (reverseStar.getArches().get(key).get(1) == searchedVertex && searchedVertex < numberOfVertex) {
                 //se achar o vértice como origem preenche a pont dele com o numero do arco
                 reverseStar.getPont()[searchedVertex] = key;
                 searchedVertex++;

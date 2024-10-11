@@ -16,7 +16,7 @@ public class ReverseStar extends Star {
         // Extrair arcos
         for (int i = 0; i < numberOfVertex; i++) {
             for (int j = 0; j < numberOfVertex; j++) {
-                if(matrix.get(i).get(j) == 1 && archIndex < numberOfArches) {
+                if(matrix.get(j).get(i) == 1 && archIndex < numberOfArches) {
                     arches.get(archIndex).add(i);
                     arches.get(archIndex).add(j);
                     archIndex++;
