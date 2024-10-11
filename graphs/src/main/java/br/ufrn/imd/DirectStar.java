@@ -1,16 +1,13 @@
 package br.ufrn.imd;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DirectStar {
     private Map<Integer, List<Integer>> arches;
     private Integer[] pont;
 
     public DirectStar() {
-        this.arches = new HashMap<>();
+        this.arches = new TreeMap<>();
     }
 
     public DirectStar(Integer numberOfArchs, Integer numberOfVertex) {
@@ -23,6 +20,10 @@ public class DirectStar {
 
         pont[0] = 0;
         pont[numberOfVertex] = numberOfArchs;
+    }
+
+    public Integer[] getPont() {
+        return pont;
     }
 
     public Map<Integer, List<Integer>> getArches() {

@@ -22,7 +22,7 @@ public class Main {
         System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
 
         // Questão 2 - Matriz de Adjacência para Lista de Adjacência
-        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(3);
+        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
         System.out.println("Adjacency List : \n" +
                 adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert)
         );

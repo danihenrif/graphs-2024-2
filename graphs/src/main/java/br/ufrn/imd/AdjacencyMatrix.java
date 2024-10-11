@@ -130,7 +130,26 @@ public class AdjacencyMatrix {
             }
         }
 
+        Integer vertix = 1;
 
+        for (int i = 0; i < numberOfVertex - 1; i++) {
+            for (Integer key : directStar.getArches().keySet()) {
+                if (directStar.getArches().get(key).get(0) == vertix && vertix < numberOfVertex) {
+                    directStar.getPont()[vertix] = key;
+                    vertix++;
+                }
+            }
+            if(vertix == numberOfVertex){
+                break;
+            }
+            vertix++;
+        }
+
+        for(int i = 1 ; i < directStar.getPont().length; i++) {
+            if(directStar.getPont()[i] == null){
+                directStar.getPont()[i] = directStar.getPont()[i+1];
+            }
+        }
 
         return directStar;
     }
