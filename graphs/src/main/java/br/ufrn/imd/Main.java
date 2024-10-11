@@ -1,5 +1,8 @@
 package br.ufrn.imd;
 
+import br.ufrn.imd.datastructures.AdjacencyMatrix;
+import br.ufrn.imd.datastructures.DirectStar;
+import br.ufrn.imd.datastructures.IncidenceMatrix;
 import br.ufrn.imd.util.GraphLoader;
 
 import java.util.ArrayList;

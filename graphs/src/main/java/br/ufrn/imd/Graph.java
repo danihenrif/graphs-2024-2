@@ -1,6 +1,6 @@
 package br.ufrn.imd;
 
-import java.util.*;
+import br.ufrn.imd.datastructures.AdjacencyList;
 
 public class Graph {
     private AdjacencyList adjacencyList;

@@ -1,16 +1,21 @@
-package br.ufrn.imd;
+package br.ufrn.imd.datastructures;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class DirectStar {
-    private Map<Integer, List<Integer>> arches;
-    private Integer[] pont;
+public abstract class Star {
+    protected Map<Integer, List<Integer>> arches;
+    protected Integer[] pont;
 
-    public DirectStar() {
+    public abstract void extractArches(List<List<Integer>> matrix, Integer numberOfVertex, Integer numberOfArches);
+
+    public Star() {
         this.arches = new TreeMap<>();
     }
 
-    public DirectStar(Integer numberOfArches, Integer numberOfVertex) {
+    public Star(Integer numberOfArches, Integer numberOfVertex) {
         this();
         for (int i = 0; i < numberOfArches; i++) {
             arches.put(i, new ArrayList<>());
@@ -20,14 +25,6 @@ public class DirectStar {
 
         pont[0] = 0;
         pont[numberOfVertex] = numberOfArches;
-    }
-
-    public Integer[] getPont() {
-        return pont;
-    }
-
-    public Map<Integer, List<Integer>> getArches() {
-        return arches;
     }
 
     @Override
@@ -47,5 +44,4 @@ public class DirectStar {
         }
         return sb.toString();
     }
-
 }

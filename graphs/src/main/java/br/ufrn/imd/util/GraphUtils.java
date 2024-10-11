@@ -1,11 +1,11 @@
 package br.ufrn.imd.util ;
 
-import br.ufrn.imd.AdjacencyMatrix;
-import br.ufrn.imd.DirectStar;
+import br.ufrn.imd.datastructures.AdjacencyMatrix;
+import br.ufrn.imd.datastructures.DirectStar;
+import br.ufrn.imd.datastructures.ReverseStar;
+import br.ufrn.imd.datastructures.Star;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GraphUtils {
     public static void validateAdjacencyMatrix(AdjacencyMatrix adjMatrix) {
@@ -57,18 +57,4 @@ public class GraphUtils {
         return vertexAndEdges;
     }
 
-    public static void extractArches(List<List<Integer>> matrix, DirectStar directStar, Integer numberOfVertex, Integer numberOfArches){
-        int archIndex = 0;
-
-        // Extrair arcos
-        for (int i = 0; i < numberOfVertex; i++) {
-            for (int j = 0; j < numberOfVertex; j++) {
-                if(matrix.get(i).get(j) == 1 && archIndex < numberOfArches) {
-                    directStar.getArches().get(archIndex).add(i);
-                    directStar.getArches().get(archIndex).add(j);
-                    archIndex++;
-                }
-            }
-        }
-    }
 }

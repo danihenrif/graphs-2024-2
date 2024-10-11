@@ -1,4 +1,4 @@
-package br.ufrn.imd;
+package br.ufrn.imd.datastructures;
 
 import br.ufrn.imd.util.GraphUtils;
 
@@ -118,7 +118,7 @@ public class AdjacencyMatrix {
 
         DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
         //Extrair os arcos da matriz de adjacência
-        GraphUtils.extractArches(this.matrix, directStar, numberOfVertex, numberOfArches);
+        directStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
 
         //Preenche o miolo da pont
         Integer searchedVertex = 1;
@@ -143,6 +143,40 @@ public class AdjacencyMatrix {
         }
 
         return directStar;
+    }
+
+    public ReverseStar adjacencyMatrixToReverseStar() {
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfArches = numberOfVertexAndEdges[1];
+
+        ReverseStar reverseStar = new ReverseStar(numberOfArches, numberOfVertex);
+        //Extrair os arcos da matriz de adjacência
+        reverseStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
+
+        //Preenche o miolo da pont
+        Integer searchedVertex = 1;
+        for (Integer key : reverseStar.getArches().keySet()) {
+            //Se o vértice origem for maior que vértice buscado pula
+            //o vértice pois ele não é origem de nenhum arco
+            if(reverseStar.getArches().get(key).get(0) > searchedVertex){
+                searchedVertex++;
+            }
+            if (reverseStar.getArches().get(key).get(0) == searchedVertex && searchedVertex < numberOfVertex) {
+                //se achar o vértice como origem preenche a pont dele com o numero do arco
+                reverseStar.getPont()[searchedVertex] = key;
+                searchedVertex++;
+            }
+        }
+
+        //Preencher as pont q não foram achadas com o valor dos vizinhos
+        for(int i = 1 ; i < reverseStar.getPont().length; i++) {
+            if(reverseStar.getPont()[i] == null){
+                reverseStar.getPont()[i] = reverseStar.getPont()[i+1];
+            }
+        }
+
+        return reverseStar;
     }
     
 
