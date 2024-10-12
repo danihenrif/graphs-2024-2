@@ -1,4 +1,4 @@
-package br.ufrn.imd;
+package br.ufrn.imd.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;

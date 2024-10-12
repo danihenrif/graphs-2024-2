@@ -1,4 +1,4 @@
-package br.ufrn.imd;
+package br.ufrn.imd.datastructures;
 
 import br.ufrn.imd.util.GraphUtils;
 
@@ -11,6 +11,10 @@ public class AdjacencyMatrix {
 
     public AdjacencyMatrix() {
         this.matrix = new ArrayList<>();
+    }
+
+    public AdjacencyMatrix(List<List<Integer>> matrix) {
+        this.matrix = matrix;
     }
 
     public List<List<Integer>> getMatrix() {
@@ -82,25 +86,17 @@ public class AdjacencyMatrix {
     }
 
     public IncidenceMatrix adjacencyMatrixToIncidenceMatrix() {
-        int numberOfVertices = matrix.size();
-        int numberOfEdges = 0;
-    
-        // Contar o número total de arestas
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < numberOfVertices; j++) {
-                if (matrix.get(i).get(j) == 1 && i != j) {
-                    numberOfEdges++;
-                }
-            }
-        }
-    
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfEdges = numberOfVertexAndEdges[1];
+
         // Criar a matriz de incidência
-        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertices,numberOfEdges);
+        IncidenceMatrix incidenceMatrix = new IncidenceMatrix(numberOfVertex,numberOfEdges);
         int edgeIndex = 0;
 
         // Preencher a matriz de incidência
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < numberOfVertices; j++) {
+        for (int i = 0; i < numberOfVertex; i++) {
+            for (int j = 0; j < numberOfVertex; j++) {
                 if(edgeIndex < numberOfEdges) {
                     if (matrix.get(i).get(j) == 1) {
                         incidenceMatrix.getMatrix().get(edgeIndex).set(i, -1); // i é a origem da aresta
@@ -114,7 +110,116 @@ public class AdjacencyMatrix {
         // Retornar a matriz de incidência
         return incidenceMatrix;
     }
+
+    public DirectStar adjacencyMatrixToDirectStar() {
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfArches = numberOfVertexAndEdges[1];
+
+        DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
+        //Extrair os arcos da matriz de adjacência
+        directStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
+
+        //Preenche o miolo da pont
+        Integer searchedVertex = 1;
+        for (Integer key : directStar.getArches().keySet()) {
+            //Se o vértice origem for maior que vértice buscado pula
+            //o vértice pois ele não é origem de nenhum arco
+            if(directStar.getArches().get(key).get(0) > searchedVertex){
+                searchedVertex++;
+            }
+            if (directStar.getArches().get(key).get(0) == searchedVertex && searchedVertex < numberOfVertex) {
+                //se achar o vértice como origem preenche a pont dele com o numero do arco
+                directStar.getPont()[searchedVertex] = key;
+                searchedVertex++;
+            }
+        }
+
+        //Preencher as pont q não foram achadas com o valor dos vizinhos
+        for(int i = 1 ; i < directStar.getPont().length; i++) {
+            if(directStar.getPont()[i] == null){
+                directStar.getPont()[i] = directStar.getPont()[i+1];
+            }
+        }
+
+        return directStar;
+    }
+
+    public ReverseStar adjacencyMatrixToReverseStar() {
+        Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
+        Integer numberOfVertex = numberOfVertexAndEdges[0];
+        Integer numberOfArches = numberOfVertexAndEdges[1];
+
+        ReverseStar reverseStar = new ReverseStar(numberOfArches, numberOfVertex);
+        //Extrair os arcos da matriz de adjacência
+        reverseStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
+
+        //Preenche o miolo da pont
+        Integer searchedVertex = 1;
+        for (Integer key : reverseStar.getArches().keySet()) {
+            //Se o vértice origem for maior que vértice buscado pula
+            //o vértice pois ele não é origem de nenhum arco
+            if(reverseStar.getArches().get(key).get(1) > searchedVertex){
+                searchedVertex++;
+            }
+            if (reverseStar.getArches().get(key).get(1) == searchedVertex && searchedVertex < numberOfVertex) {
+                //se achar o vértice como origem preenche a pont dele com o numero do arco
+                reverseStar.getPont()[searchedVertex] = key;
+                searchedVertex++;
+            }
+        }
+
+        //Preencher as pont q não foram achadas com o valor dos vizinhos
+        for(int i = 1 ; i < reverseStar.getPont().length; i++) {
+            if(reverseStar.getPont()[i] == null){
+                reverseStar.getPont()[i] = reverseStar.getPont()[i+1];
+            }
+        }
+
+        return reverseStar;
+    }
     
+    public List<Integer> generatePrufferCode() {
+        Integer numberOfVertex = matrix.size();
+        List<Integer> prufferCode = new ArrayList<>();
+    
+        // Criar uma lista para armazenar o grau de cada vértice
+        Integer[] degree = new Integer[numberOfVertex];
+        for (int i = 0; i < numberOfVertex; i++) {
+            degree[i] = 0; // Inicializando o grau
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (matrix.get(i).get(j) == 1) {
+                    degree[i]++;
+                }
+            }
+        }
+    
+        // Gerar o código de Prüffer
+        for (int i = 0; i < numberOfVertex - 2; i++) {
+            // Encontrar o menor vértice com grau 1
+            Integer leaf = -1;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (degree[j] == 1) {
+                    leaf = j;
+                    break;
+                }
+            }
+    
+            // Encontrar o vizinho do vértice folha
+            for (int j = 0; j < numberOfVertex; j++) {
+                if (matrix.get(leaf).get(j) == 1 && degree[j] != 0) {
+                    prufferCode.add(j);
+                    degree[j]--;  // Reduz o grau do vizinho
+                    break;
+                }
+            }
+    
+            // Remover a folha
+            degree[leaf] = 0;
+        }
+    
+        return prufferCode;
+    }    
 
     /*public void loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {

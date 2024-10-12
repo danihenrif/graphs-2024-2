@@ -1,12 +1,38 @@
 package br.ufrn.imd.util ;
 
-import br.ufrn.imd.AdjacencyMatrix;
+import br.ufrn.imd.datastructures.AdjacencyMatrix;
+import br.ufrn.imd.datastructures.DirectStar;
+import br.ufrn.imd.datastructures.ReverseStar;
+import br.ufrn.imd.datastructures.Star;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class GraphUtils {
+    public static List<List<Integer>> treeMatrix = new ArrayList<>();
+    public static List<List<Integer>> treeMatrix2 = new ArrayList<>();
+
+    static {
+        treeMatrix.add(Arrays.asList(0,1,1,0,0));
+        treeMatrix.add(Arrays.asList(1,0,0,1,1));
+        treeMatrix.add(Arrays.asList(1,0,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
+
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 0
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 1
+        treeMatrix2.add(Arrays.asList(1, 1, 0, 1, 0, 1, 0, 0, 0, 0)); // Vértice 2
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 3
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 4
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 1, 0, 1, 0, 1, 0)); // Vértice 5
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 6
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 7
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 1, 0, 1)); // Vértice 8
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 9
+    }
+
+
     public static void validateAdjacencyMatrix(AdjacencyMatrix adjMatrix) {
         // Verificar se a matriz é nula
         if (adjMatrix.getMatrix() == null) {
@@ -37,4 +63,23 @@ public class GraphUtils {
             }
         }
     }
+
+    public static Integer[] numberOfVertexAndEdges(List<List<Integer>> matrix){
+        int numberOfVertices = matrix.size();
+        int numberOfEdges = 0;
+
+        // Contar o número total de arestas
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (matrix.get(i).get(j) == 1 && i != j) {
+                    numberOfEdges++;
+                }
+            }
+        }
+
+        Integer[] vertexAndEdges =  new Integer[]{numberOfVertices,numberOfEdges};
+
+        return vertexAndEdges;
+    }
+
 }
