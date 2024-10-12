@@ -54,15 +54,9 @@ public class Main {
         System.out.println();
 
         //Exemplo do slide
-        List<List<Integer>> matrix = new ArrayList<>();
-        matrix.add(Arrays.asList(0, 1, 1, 0, 0));
-        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
-        matrix.add(Arrays.asList(0, 0, 0, 0, 0));
-        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
-        matrix.add(Arrays.asList(0, 0, 0, 1, 0));
 
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
-        AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(matrix);
+        AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
         System.out.println(adjacencyMatrix.toString());
 
         DirectStar directStar1 = adjacencyMatrix.adjacencyMatrixToDirectStar();
@@ -79,10 +73,8 @@ public class Main {
         System.out.println(reverseStar);
 
         // Questão 5 - Gerar Código de Prüffer
-        List<List<Integer>> treeMatrix = GraphUtils.treeMatrix;
 
-        // Utilizando o construtor existente para inicializar a matriz
-        AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(treeMatrix);
+        AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(GraphUtils.treeMatrix);
         System.out.println("Matriz de Adjacência da Árvore:");
         System.out.println(treeAdjacencyMatrix.toString());
 
@@ -91,9 +83,8 @@ public class Main {
         System.out.println(prufferCode);
 
         //Exemplo do slide
-        List<List<Integer>> treeMatrix2 = GraphUtils.treeMatrix2;
 
-        AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(treeMatrix2);
+        AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.treeMatrix2);
         System.out.println("Matriz de Adjacência da Árvore:");
         System.out.println(treeAdjacencyMatrix2.toString());
 
