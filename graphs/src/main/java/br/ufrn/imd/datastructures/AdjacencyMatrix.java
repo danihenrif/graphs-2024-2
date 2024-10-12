@@ -207,7 +207,7 @@ public class AdjacencyMatrix {
     
             // Encontrar o vizinho do vértice folha
             for (int j = 0; j < numberOfVertex; j++) {
-                if (matrix.get(leaf).get(j) == 1) {
+                if (matrix.get(leaf).get(j) == 1 && degree[j] != 0) {
                     prufferCode.add(j);
                     degree[j]--;  // Reduz o grau do vizinho
                     break;
