@@ -93,5 +93,30 @@ public class Main {
         List<Integer> prufferCode = treeAdjacencyMatrix.generatePrufferCode();
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode);
+
+        List<List<Integer>> treeMatrix2 = new ArrayList<>();
+
+
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 0
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 1
+        treeMatrix2.add(Arrays.asList(1, 1, 0, 1, 0, 1, 0, 0, 0, 0)); // Vértice 2
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 3
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 4
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 1, 0, 1, 0, 1, 0)); // Vértice 5
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 6
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 7
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 1, 0, 1)); // Vértice 8
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 9
+
+        // Utilizando o construtor existente para inicializar a matriz
+        AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(treeMatrix2);
+        System.out.println("Matriz de Adjacência da Árvore:");
+        System.out.println(treeAdjacencyMatrix2.toString());
+
+        List<Integer> prufferCode2 = treeAdjacencyMatrix2.generatePrufferCode();
+        System.out.println("Código de Prüffer:");
+        System.out.println(prufferCode2);
+
+
     }
 }
