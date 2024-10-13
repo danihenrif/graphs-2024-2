@@ -5,6 +5,7 @@ import br.ufrn.imd.datastructures.DirectStar;
 import br.ufrn.imd.datastructures.IncidenceMatrix;
 import br.ufrn.imd.datastructures.ReverseStar;
 import br.ufrn.imd.util.GraphLoader;
+import br.ufrn.imd.util.GraphUtils;
 
 import javax.sound.sampled.ReverbType;
 import java.util.ArrayList;
@@ -43,25 +44,19 @@ public class Main {
 
         //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
         //Exemplo random
-        System.out.println("Adjacency Matrix to Convert to Direct Star:");
+        /*System.out.println("Adjacency Matrix to Convert to Direct Star:");
         System.out.println(adjacencyMatrixToConvert.toString());
 
         System.out.println("Converted, result :");
         DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
         System.out.println(directStar);
 
-        System.out.println();
+        System.out.println();*/
 
         //Exemplo do slide
-        List<List<Integer>> matrix = new ArrayList<>();
-        matrix.add(Arrays.asList(0, 1, 1, 0, 0));
-        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
-        matrix.add(Arrays.asList(0, 0, 0, 0, 0));
-        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
-        matrix.add(Arrays.asList(0, 0, 0, 1, 0));
-
+        //Matriz para estrela direta
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
-        AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(matrix);
+        AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
         System.out.println(adjacencyMatrix.toString());
 
         DirectStar directStar1 = adjacencyMatrix.adjacencyMatrixToDirectStar();
@@ -69,6 +64,17 @@ public class Main {
         System.out.println("Converted, result :");
         System.out.println(directStar1);
 
+        //Matriz para estrela direta duas linhas em branco consecultivas
+        System.out.println("Adjacency Matrix to Convert to Direct Star (with two consecutive vertices that are not the origin):");
+        AdjacencyMatrix adjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.matrix2);
+        System.out.println(adjacencyMatrix2.toString());
+
+        DirectStar directStar2 = adjacencyMatrix2.adjacencyMatrixToDirectStar();
+
+        System.out.println("Converted, result :");
+        System.out.println(directStar2);
+
+        //Estrela reversa (Exemplo do livro)
         System.out.println("Adjacency Matrix to Convert to Reverse Star:");
         System.out.println(adjacencyMatrix.toString());
 
@@ -76,5 +82,26 @@ public class Main {
 
         System.out.println("Converted, result :");
         System.out.println(reverseStar);
+
+        // Questão 5 - Gerar Código de Prüffer
+
+        AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(GraphUtils.treeMatrix);
+        System.out.println("Matriz de Adjacência da Árvore:");
+        System.out.println(treeAdjacencyMatrix.toString());
+
+        List<Integer> prufferCode = treeAdjacencyMatrix.generatePrufferCode();
+        System.out.println("Código de Prüffer:");
+        System.out.println(prufferCode);
+
+        //Exemplo do slide
+
+        AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.treeMatrix2);
+        System.out.println("Matriz de Adjacência da Árvore:");
+        System.out.println(treeAdjacencyMatrix2.toString());
+
+        List<Integer> prufferCode2 = treeAdjacencyMatrix2.generatePrufferCode();
+        System.out.println("Código de Prüffer:");
+        System.out.println(prufferCode2);
+
     }
 }

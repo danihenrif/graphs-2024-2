@@ -6,9 +6,9 @@ Para que o programa inicialize um grafo de um arquivo txt
 
 A primeira linha deve representar se o grafo é direcionado ou não ('d') ou ('n').
 
-A segunda deve informar os rótulos das arestas separados por vírgula
+A segunda deve informar os rótulos dos vértices separados por vírgula
 
-A seguinte deve informar os vértices na forma : (x,y) sem separação por vírgula
+A seguinte deve informar as arestas ou arcos na forma : (x,y) sem separação por vírgula, caso o grafo seja direcionado  x = origem e y = destino.
 
 Exemplo de arquivo.txt : 
 

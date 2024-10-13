@@ -5,9 +5,48 @@ import br.ufrn.imd.datastructures.DirectStar;
 import br.ufrn.imd.datastructures.ReverseStar;
 import br.ufrn.imd.datastructures.Star;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphUtils {
+    public static List<List<Integer>> treeMatrix = new ArrayList<>();
+    public static List<List<Integer>> treeMatrix2 = new ArrayList<>();
+    public static List<List<Integer>> matrix = new ArrayList<>();
+    public static List<List<Integer>> matrix2 = new ArrayList<>();
+
+    static {
+        matrix.add(Arrays.asList(0, 1, 1, 0, 0));
+        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
+        matrix.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix.add(Arrays.asList(0, 0, 1, 0, 1));
+        matrix.add(Arrays.asList(0, 0, 0, 1, 0));
+
+        matrix2.add(Arrays.asList(0, 1, 1, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 1, 0, 1));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 1, 0));
+
+        treeMatrix.add(Arrays.asList(0,1,1,0,0));
+        treeMatrix.add(Arrays.asList(1,0,0,1,1));
+        treeMatrix.add(Arrays.asList(1,0,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
+
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 0
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 1
+        treeMatrix2.add(Arrays.asList(1, 1, 0, 1, 0, 1, 0, 0, 0, 0)); // Vértice 2
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 3
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 4
+        treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 1, 0, 1, 0, 1, 0)); // Vértice 5
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 0, 0, 0)); // Vértice 6
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 7
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 1, 0, 1, 0, 1)); // Vértice 8
+        treeMatrix2.add(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)); // Vértice 9
+    }
+
+
     public static void validateAdjacencyMatrix(AdjacencyMatrix adjMatrix) {
         // Verificar se a matriz é nula
         if (adjMatrix.getMatrix() == null) {
