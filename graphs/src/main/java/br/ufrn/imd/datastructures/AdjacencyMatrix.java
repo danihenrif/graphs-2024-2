@@ -145,10 +145,10 @@ public class AdjacencyMatrix {
             }
         }
 
-        //Preencher as pont q não foram achadas com o valor dos vizinhos
-        for(int i = 1 ; i < directStar.getPont().length; i++) {
-            if(directStar.getPont()[i] == null){
-                directStar.getPont()[i] = directStar.getPont()[i+1];
+        // Preencher as posições nulas com o próximo valor válido
+        for (int i = 1; i < directStar.getPont().length - 1; i++) {
+            if (directStar.getPont()[i] == null) {
+                directStar.getPont()[i] = findNextNonNull(directStar.getPont(), i + 1);
             }
         }
 
@@ -188,10 +188,10 @@ public class AdjacencyMatrix {
             }
         }
 
-        //Preencher as pont q não foram achadas com o valor dos vizinhos
-        for(int i = 1 ; i < reverseStar.getPont().length; i++) {
-            if(reverseStar.getPont()[i] == null){
-                reverseStar.getPont()[i] = reverseStar.getPont()[i+1];
+        // Preencher as posições nulas com o próximo valor válido
+        for (int i = 1; i < reverseStar.getPont().length - 1; i++) {
+            if (reverseStar.getPont()[i] == null) {
+                reverseStar.getPont()[i] = findNextNonNull(reverseStar.getPont(), i + 1);
             }
         }
 
@@ -238,7 +238,15 @@ public class AdjacencyMatrix {
         }
     
         return prufferCode;
-    }    
+    }
+
+    // Método recursivo para buscar o próximo pont não nulo
+    private Integer findNextNonNull(Integer[] pont, int index) {
+        if (pont[index] != null) {
+            return pont[index]; // Retorna o primeiro valor não nulo encontrado
+        }
+        return findNextNonNull(pont, index + 1); // Continua buscando recursivamente
+    }
 
     /*public void loadGraphFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {

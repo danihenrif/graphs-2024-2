@@ -54,7 +54,7 @@ public class Main {
         System.out.println();*/
 
         //Exemplo do slide
-
+        //Matriz para estrela direta
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
         AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
         System.out.println(adjacencyMatrix.toString());
@@ -64,6 +64,17 @@ public class Main {
         System.out.println("Converted, result :");
         System.out.println(directStar1);
 
+        //Matriz para estrela direta duas linhas em branco consecultivas
+        System.out.println("Adjacency Matrix to Convert to Direct Star (with two consecutive vertices that are not the origin):");
+        AdjacencyMatrix adjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.matrix2);
+        System.out.println(adjacencyMatrix2.toString());
+
+        DirectStar directStar2 = adjacencyMatrix2.adjacencyMatrixToDirectStar();
+
+        System.out.println("Converted, result :");
+        System.out.println(directStar2);
+
+        //Estrela reversa (Exemplo do livro)
         System.out.println("Adjacency Matrix to Convert to Reverse Star:");
         System.out.println(adjacencyMatrix.toString());
 

@@ -13,6 +13,7 @@ public class GraphUtils {
     public static List<List<Integer>> treeMatrix = new ArrayList<>();
     public static List<List<Integer>> treeMatrix2 = new ArrayList<>();
     public static List<List<Integer>> matrix = new ArrayList<>();
+    public static List<List<Integer>> matrix2 = new ArrayList<>();
 
     static {
         matrix.add(Arrays.asList(0, 1, 1, 0, 0));
@@ -20,6 +21,12 @@ public class GraphUtils {
         matrix.add(Arrays.asList(0, 0, 0, 0, 0));
         matrix.add(Arrays.asList(0, 0, 1, 0, 1));
         matrix.add(Arrays.asList(0, 0, 0, 1, 0));
+
+        matrix2.add(Arrays.asList(0, 1, 1, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 1, 0, 1));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 1, 0));
 
         treeMatrix.add(Arrays.asList(0,1,1,0,0));
         treeMatrix.add(Arrays.asList(1,0,0,1,1));
