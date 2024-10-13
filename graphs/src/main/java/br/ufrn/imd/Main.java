@@ -44,14 +44,14 @@ public class Main {
 
         //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
         //Exemplo random
-        System.out.println("Adjacency Matrix to Convert to Direct Star:");
+        /*System.out.println("Adjacency Matrix to Convert to Direct Star:");
         System.out.println(adjacencyMatrixToConvert.toString());
 
         System.out.println("Converted, result :");
         DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
         System.out.println(directStar);
 
-        System.out.println();
+        System.out.println();*/
 
         //Exemplo do slide
 

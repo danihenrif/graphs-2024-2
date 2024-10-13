@@ -117,21 +117,31 @@ public class AdjacencyMatrix {
         Integer numberOfArches = numberOfVertexAndEdges[1];
 
         DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
-        //Extrair os arcos da matriz de adjacência
-        directStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
 
-        //Preenche o miolo da pont
-        Integer searchedVertex = 1;
-        for (Integer key : directStar.getArches().keySet()) {
-            //Se o vértice origem for maior que vértice buscado pula
-            //o vértice pois ele não é origem de nenhum arco
-            if(directStar.getArches().get(key).get(0) > searchedVertex){
-                searchedVertex++;
+        int archIndex = 0;
+        Integer originVertex = 1;
+
+        out:
+        for (int i = 0; i < numberOfVertex; i++) {
+            //Caso um vértice  não seja origem de arco, atualiza a próxima origem a ser procurada
+            if(i > originVertex) {
+                originVertex++;
             }
-            if (directStar.getArches().get(key).get(0) == searchedVertex && searchedVertex < numberOfVertex) {
-                //se achar o vértice como origem preenche a pont dele com o numero do arco
-                directStar.getPont()[searchedVertex] = key;
-                searchedVertex++;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(i).get(j) == 1) {
+                    directStar.getArches().get(archIndex).add(i);
+                    directStar.getArches().get(archIndex).add(j);
+
+                    if(i == originVertex) {
+                        directStar.getPont()[originVertex] = archIndex;
+                        originVertex++;
+                    }
+
+                    archIndex++;
+                }
+                if(archIndex >= numberOfArches) {
+                    break out; //Arcos encontrados
+                }
             }
         }
 
@@ -151,21 +161,30 @@ public class AdjacencyMatrix {
         Integer numberOfArches = numberOfVertexAndEdges[1];
 
         ReverseStar reverseStar = new ReverseStar(numberOfArches, numberOfVertex);
-        //Extrair os arcos da matriz de adjacência
-        reverseStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
 
-        //Preenche o miolo da pont
-        Integer searchedVertex = 1;
-        for (Integer key : reverseStar.getArches().keySet()) {
-            //Se o vértice origem for maior que vértice buscado pula
-            //o vértice pois ele não é origem de nenhum arco
-            if(reverseStar.getArches().get(key).get(1) > searchedVertex){
-                searchedVertex++;
+        int archIndex = 0;
+        Integer destinationVertex = 1;
+
+        out:
+        for (int i = 0; i < numberOfVertex; i++) {
+            //Caso um vértice  não seja origem de arco, atualiza a próxima origem a ser procurada
+            if(i > destinationVertex) {
+                destinationVertex++;
             }
-            if (reverseStar.getArches().get(key).get(1) == searchedVertex && searchedVertex < numberOfVertex) {
-                //se achar o vértice como origem preenche a pont dele com o numero do arco
-                reverseStar.getPont()[searchedVertex] = key;
-                searchedVertex++;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(j).get(i) == 1) {
+                    reverseStar.getArches().get(archIndex).add(i);
+                    reverseStar.getArches().get(archIndex).add(j);
+
+                    if(i == destinationVertex) {
+                        reverseStar.getPont()[destinationVertex] = archIndex;
+                        destinationVertex++;
+                    }
+                    archIndex++;
+                }
+                if(archIndex >= numberOfArches) {
+                    break out; //Arcos encontrados
+                }
             }
         }
 
