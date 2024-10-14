@@ -12,17 +12,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-        GraphLoader.load(graph, "src/grafo2" + ".txt");
+        GraphLoader.load(graph, "graphs/src/grafo2.txt");
 
         // Questão 1 - Manipulação de Grafo Simples
-        System.out.println(graph.toString());
+        System.out.println(graph);
         System.out.println(graph.removeVertex(1));
-        System.out.println(graph.toString());
+        System.out.println(graph);
 
         System.out.println(graph.addVertex(4));
         System.out.println();
 
-        System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
+        System.out.println(GraphLoader.load(graph, "graphs/src/grafo.txt"));
 
         // Questão 2 - Matriz de Adjacência para Lista de Adjacência
         AdjacencyMatrix adjacencyMatrixToConvert =
@@ -44,7 +44,7 @@ public class Main {
         // Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
         // Exemplo random
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
-        System.out.println(adjacencyMatrixToConvert.toString());
+        System.out.println(adjacencyMatrixToConvert);
 
         System.out.println("Converted, result :");
         DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
@@ -56,7 +56,7 @@ public class Main {
 
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
         AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
-        System.out.println(adjacencyMatrix.toString());
+        System.out.println(adjacencyMatrix);
 
         DirectStar directStar1 = adjacencyMatrix.adjacencyMatrixToDirectStar();
 
@@ -64,7 +64,7 @@ public class Main {
         System.out.println(directStar1);
 
         System.out.println("Adjacency Matrix to Convert to Reverse Star:");
-        System.out.println(adjacencyMatrix.toString());
+        System.out.println(adjacencyMatrix);
 
         ReverseStar reverseStar = adjacencyMatrix.adjacencyMatrixToReverseStar();
 
@@ -75,7 +75,7 @@ public class Main {
 
         AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(GraphUtils.treeMatrix);
         System.out.println("Matriz de Adjacência da Árvore:");
-        System.out.println(treeAdjacencyMatrix.toString());
+        System.out.println(treeAdjacencyMatrix);
 
         List<Integer> prufferCode = treeAdjacencyMatrix.generatePrufferCode();
         System.out.println("Código de Prüffer:");
@@ -85,7 +85,7 @@ public class Main {
 
         AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.treeMatrix2);
         System.out.println("Matriz de Adjacência da Árvore:");
-        System.out.println(treeAdjacencyMatrix2.toString());
+        System.out.println(treeAdjacencyMatrix2);
 
         List<Integer> prufferCode2 = treeAdjacencyMatrix2.generatePrufferCode();
         System.out.println("Código de Prüffer:");

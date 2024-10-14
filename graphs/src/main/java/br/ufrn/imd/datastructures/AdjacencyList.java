@@ -71,20 +71,22 @@ public class AdjacencyList {
         return "Vértice " + vertex + " removido com sucesso!";
     }
 
-    public void BuscaProfundidade(int vertice){
-        int n = list.size();
-        boolean[] visited = new boolean[n];
+    public void BuscaProfundidade(int vertice) {
+        Set<Integer> visited = new HashSet<>();
         Stack<Integer> stack = new Stack<>();
 
-        visited[vertice] = true;
+        dfs(vertice, visited, stack);
+    }
 
+    private void dfs(int vertice, Set<Integer> visited, Stack<Integer> stack) {
+        visited.add(vertice);
         stack.push(vertice);
 
-        for(int w: list.get(vertice)){
-            if (!visited[w]){
+        for (int w : list.get(vertice)) {
+            if (!visited.contains(w)) {
                 System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
-                BuscaProfundidade(w);
-            }else if(stack.contains(w) && !((stack.indexOf(vertice) - stack.indexOf(w)) == 1)){
+                dfs(w, visited, stack);
+            } else if (stack.contains(w) && !((stack.indexOf(vertice) - stack.indexOf(w)) == 1)) {
                 System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
             }
         }
