@@ -91,12 +91,16 @@ public class Main {
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode2);
 
-        // Testando o método depthFirstSearch
+        // Questão de busca em profundidade com matriz de adjacência
         System.out.println("\nTeste da Busca em Profundidade (DFS):");
         adjacencyMatrixToConvert.depthFirstSearch(0);
 
-        // Testando o método depthFirstSearch
+        // Questão de busca em profundidade com lista de adjacência
         System.out.println("\nTeste da Busca em Profundidade com Recorrência:");
         graph.getAdjacencyList().BuscaProfundidade(1);
+
+        // Questão de busca em profundidade com lista de adjacência salvando o predecessor
+        System.out.println("\nTeste da Busca em Profundidade com Predecessor:");
+        graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
     }
 }

@@ -93,4 +93,30 @@ public class AdjacencyList {
 
         stack.pop();
     }
+
+    public void BuscaProfundidadeComPredecessor(int vertice) {
+        Set<Integer> visited = new HashSet<>();
+        Map<Integer, Integer> predecessor = new HashMap<>();
+
+        predecessor.put(vertice, null);
+
+        dfsComPredecessor(vertice, visited, predecessor);
+
+        System.out.println("\nPredecessores:");
+        for (Map.Entry<Integer, Integer> entry : predecessor.entrySet()) {
+            System.out.println("Vértice: " + entry.getKey() + ", Predecessor: " + entry.getValue());
+        }
+    }
+
+    private void dfsComPredecessor(int vertice, Set<Integer> visited, Map<Integer, Integer> predecessor) {
+        visited.add(vertice);
+
+        for (int w : list.get(vertice)) {
+            if (!visited.contains(w)) {
+                predecessor.put(w, vertice);
+                System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
+                dfsComPredecessor(w, visited, predecessor);
+            }
+        }
+    }
 }
