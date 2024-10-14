@@ -7,9 +7,6 @@ import br.ufrn.imd.datastructures.ReverseStar;
 import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
 
-import javax.sound.sampled.ReverbType;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -28,13 +25,15 @@ public class Main {
         System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
 
         // Questão 2 - Matriz de Adjacência para Lista de Adjacência
-        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
-        System.out.println("Adjacency List : \n" +
-                adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert)
-        );
+        AdjacencyMatrix adjacencyMatrixToConvert =
+                new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
+        System.out.println(
+                "Adjacency List : \n"
+                        + AdjacencyMatrix.undirectedAdjacencyMatrixToAdjacencyList(
+                        adjacencyMatrixToConvert));
 
         // Questão 3 - Matriz de Adjacência para Matriz de Incidência
-        //adjacencyMatrixToConvert.setDirected(true);
+        // adjacencyMatrixToConvert.setDirected(true);
         System.out.println("Adjacency Matrix to Convert:");
         System.out.println(adjacencyMatrixToConvert.toString());
 
@@ -42,19 +41,19 @@ public class Main {
         IncidenceMatrix incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
         System.out.println(incidenceMatrix.toString());
 
-        //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
-        //Exemplo random
-        /*System.out.println("Adjacency Matrix to Convert to Direct Star:");
+        // Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
+        // Exemplo random
+        System.out.println("Adjacency Matrix to Convert to Direct Star:");
         System.out.println(adjacencyMatrixToConvert.toString());
 
         System.out.println("Converted, result :");
         DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
         System.out.println(directStar);
 
-        System.out.println();*/
+        System.out.println();
 
-        //Exemplo do slide
-        //Matriz para estrela direta
+        // Exemplo do slide
+
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
         AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
         System.out.println(adjacencyMatrix.toString());
@@ -64,17 +63,6 @@ public class Main {
         System.out.println("Converted, result :");
         System.out.println(directStar1);
 
-        //Matriz para estrela direta duas linhas em branco consecultivas
-        System.out.println("Adjacency Matrix to Convert to Direct Star (with two consecutive vertices that are not the origin):");
-        AdjacencyMatrix adjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.matrix2);
-        System.out.println(adjacencyMatrix2.toString());
-
-        DirectStar directStar2 = adjacencyMatrix2.adjacencyMatrixToDirectStar();
-
-        System.out.println("Converted, result :");
-        System.out.println(directStar2);
-
-        //Estrela reversa (Exemplo do livro)
         System.out.println("Adjacency Matrix to Convert to Reverse Star:");
         System.out.println(adjacencyMatrix.toString());
 
@@ -93,7 +81,7 @@ public class Main {
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode);
 
-        //Exemplo do slide
+        // Exemplo do slide
 
         AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.treeMatrix2);
         System.out.println("Matriz de Adjacência da Árvore:");
@@ -103,5 +91,8 @@ public class Main {
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode2);
 
+        // Testando o método depthFirstSearch
+        System.out.println("\nTeste da Busca em Profundidade (DFS):");
+        adjacencyMatrixToConvert.depthFirstSearch(0);
     }
 }

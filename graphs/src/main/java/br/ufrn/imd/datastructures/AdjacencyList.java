@@ -1,13 +1,16 @@
 package br.ufrn.imd.datastructures;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class AdjacencyList {
-    private Map<Integer, Set<Integer>> list; // Usando Integer para rótulos
+    private final Map<Integer, Set<Integer>> list; // Usando Integer para rótulos
     private boolean isDirected;
 
     public AdjacencyList() {
-       this.list = new HashMap<>();
+        this.list = new HashMap<>();
     }
 
     public AdjacencyList(Map<Integer, Set<Integer>> adjacencyList) {
@@ -70,6 +73,4 @@ public class AdjacencyList {
         }
         return "Vértice " + vertex + " removido com sucesso!";
     }
-
-
 }

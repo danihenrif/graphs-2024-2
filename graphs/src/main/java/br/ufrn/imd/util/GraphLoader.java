@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 public class GraphLoader {
 
-    public static String load(Graph g, String filename){
+    public static String load(Graph g, String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             // Ler se é direcionado ou não
             g.getAdjacencyList().setDirected(readGraphType(br));
