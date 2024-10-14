@@ -1,9 +1,6 @@
 package br.ufrn.imd.datastructures;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AdjacencyList {
     private final Map<Integer, Set<Integer>> list; // Usando Integer para rótulos
@@ -72,5 +69,26 @@ public class AdjacencyList {
             adjacent.remove(vertex);
         }
         return "Vértice " + vertex + " removido com sucesso!";
+    }
+
+    public void BuscaProfundidade(int vertice){
+        int n = list.size();
+        boolean[] visited = new boolean[n];
+        Stack<Integer> stack = new Stack<>();
+
+        visited[vertice] = true;
+
+        stack.push(vertice);
+
+        for(int w: list.get(vertice)){
+            if (!visited[w]){
+                System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
+                BuscaProfundidade(w);
+            }else if(stack.contains(w) && !((stack.indexOf(vertice) - stack.indexOf(w)) == 1)){
+                System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
+            }
+        }
+
+        stack.pop();
     }
 }

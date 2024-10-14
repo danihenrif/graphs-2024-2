@@ -94,5 +94,9 @@ public class Main {
         // Testando o método depthFirstSearch
         System.out.println("\nTeste da Busca em Profundidade (DFS):");
         adjacencyMatrixToConvert.depthFirstSearch(0);
+
+        // Testando o método depthFirstSearch
+        System.out.println("\nTeste da Busca em Profundidade com Recorrência:");
+        graph.getAdjacencyList().BuscaProfundidade(1);
     }
 }
