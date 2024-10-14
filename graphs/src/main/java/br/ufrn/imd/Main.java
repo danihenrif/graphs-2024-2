@@ -103,6 +103,9 @@ public class Main {
         // Questão de busca em profundidade com matriz de adjacência
         System.out.println("\nTeste da Busca em Profundidade (DFS):");
         adjacencyMatrixToConvert.depthFirstSearch(0);
+        AdjacencyMatrix slideExample = new AdjacencyMatrix(GraphUtils.matrix3);
+        slideExample.depthFirstSearch(6);
+
 
         // Questão de busca em profundidade com lista de adjacência
         System.out.println("\nTeste da Busca em Profundidade com Recorrência:");

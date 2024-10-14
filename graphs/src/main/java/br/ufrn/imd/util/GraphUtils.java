@@ -14,6 +14,7 @@ public class GraphUtils {
     public static List<List<Integer>> treeMatrix2 = new ArrayList<>();
     public static List<List<Integer>> matrix = new ArrayList<>();
     public static List<List<Integer>> matrix2 = new ArrayList<>();
+    public static List<List<Integer>> matrix3 = new ArrayList<>();
 
     static {
         matrix.add(Arrays.asList(0, 1, 1, 0, 0));
@@ -27,6 +28,19 @@ public class GraphUtils {
         matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
         matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
         matrix2.add(Arrays.asList(0, 0, 0, 1, 0));
+
+        matrix3.add(Arrays.asList(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0)); // 1 -> 2, 3
+        matrix3.add(Arrays.asList(1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1)); // 2 -> 1, 3, 4, 8, 11
+        matrix3.add(Arrays.asList(1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0)); // 3 -> 1, 2, 4, 5
+        matrix3.add(Arrays.asList(0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0)); // 4 -> 2, 3, 4, 8, 9
+        matrix3.add(Arrays.asList(0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0)); // 5 -> 3, 6
+        matrix3.add(Arrays.asList(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0)); // 6 -> 5
+        matrix3.add(Arrays.asList(0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1)); // 7 -> 4, 10, 11
+        matrix3.add(Arrays.asList(0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // 8 -> 2, 4
+        matrix3.add(Arrays.asList(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1)); // 9 -> 4, 11
+        matrix3.add(Arrays.asList(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1)); // 10 -> 7, 11
+        matrix3.add(Arrays.asList(0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0)); // 11 -> 2, 7, 9, 10
+
 
         treeMatrix.add(Arrays.asList(0,1,1,0,0));
         treeMatrix.add(Arrays.asList(1,0,0,1,1));
