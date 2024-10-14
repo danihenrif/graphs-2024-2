@@ -34,7 +34,7 @@ public class IncidenceMatrix {
 
         int numberOfEdges = matrix.size();
 
-        int numberOfVertices = matrix.isEmpty() ? 0 : matrix.getFirst().size();
+        int numberOfVertices = matrix.isEmpty() ? 0 : matrix.get(0).size();
 
         for (int i = 0; i < numberOfEdges; i++) {
             for (int j = 0; j < numberOfVertices; j++) {

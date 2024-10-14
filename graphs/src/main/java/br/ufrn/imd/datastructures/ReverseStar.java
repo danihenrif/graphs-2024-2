@@ -8,22 +8,6 @@ public class ReverseStar extends Star {
         super(numberOfArches, numberOfVertex);
     }
 
-    public void extractArches(
-            List<List<Integer>> matrix, Integer numberOfVertex, Integer numberOfArches) {
-        int archIndex = 0;
-
-        // Extrair arcos
-        for (int i = 0; i < numberOfVertex; i++) {
-            for (int j = 0; j < numberOfVertex; j++) {
-                if (matrix.get(j).get(i) == 1 && archIndex < numberOfArches) {
-                    arches.get(archIndex).add(i);
-                    arches.get(archIndex).add(j);
-                    archIndex++;
-                }
-            }
-        }
-    }
-
     public Integer[] getPont() {
         return pont;
     }

@@ -9,9 +9,6 @@ public abstract class Star {
   protected Map<Integer, List<Integer>> arches;
   protected Integer[] pont;
 
-  public abstract void extractArches(
-      List<List<Integer>> matrix, Integer numberOfVertex, Integer numberOfArches);
-
   public Star() {
     this.arches = new TreeMap<>();
   }

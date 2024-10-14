@@ -1,6 +1,9 @@
-package br.ufrn.imd.util;
+package br.ufrn.imd.util ;
 
 import br.ufrn.imd.datastructures.AdjacencyMatrix;
+import br.ufrn.imd.datastructures.DirectStar;
+import br.ufrn.imd.datastructures.ReverseStar;
+import br.ufrn.imd.datastructures.Star;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +13,7 @@ public class GraphUtils {
     public static List<List<Integer>> treeMatrix = new ArrayList<>();
     public static List<List<Integer>> treeMatrix2 = new ArrayList<>();
     public static List<List<Integer>> matrix = new ArrayList<>();
+    public static List<List<Integer>> matrix2 = new ArrayList<>();
 
     static {
         matrix.add(Arrays.asList(0, 1, 1, 0, 0));
@@ -18,11 +22,17 @@ public class GraphUtils {
         matrix.add(Arrays.asList(0, 0, 1, 0, 1));
         matrix.add(Arrays.asList(0, 0, 0, 1, 0));
 
-        treeMatrix.add(Arrays.asList(0, 1, 1, 0, 0));
-        treeMatrix.add(Arrays.asList(1, 0, 0, 1, 1));
-        treeMatrix.add(Arrays.asList(1, 0, 0, 0, 0));
-        treeMatrix.add(Arrays.asList(0, 1, 0, 0, 0));
-        treeMatrix.add(Arrays.asList(0, 1, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 1, 1, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 1, 0, 1));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 0, 0));
+        matrix2.add(Arrays.asList(0, 0, 0, 1, 0));
+
+        treeMatrix.add(Arrays.asList(0,1,1,0,0));
+        treeMatrix.add(Arrays.asList(1,0,0,1,1));
+        treeMatrix.add(Arrays.asList(1,0,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
+        treeMatrix.add(Arrays.asList(0,1,0,0,0));
 
         treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 0
         treeMatrix2.add(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)); // Vértice 1
@@ -43,7 +53,7 @@ public class GraphUtils {
             throw new IllegalArgumentException("A matriz não pode ser nula.");
         }
 
-        int numberOfVertex = adjMatrix.getMatrix().size();
+        Integer numberOfVertex = adjMatrix.getMatrix().size();
 
         // Verificar se a matriz não está vazia
         if (numberOfVertex == 0) {
@@ -68,7 +78,7 @@ public class GraphUtils {
         }
     }
 
-    public static Integer[] numberOfVertexAndEdges(List<List<Integer>> matrix) {
+    public static Integer[] numberOfVertexAndEdges(List<List<Integer>> matrix){
         int numberOfVertices = matrix.size();
         int numberOfEdges = 0;
 
@@ -81,7 +91,9 @@ public class GraphUtils {
             }
         }
 
-        return new Integer[]{numberOfVertices, numberOfEdges};
+        Integer[] vertexAndEdges =  new Integer[]{numberOfVertices,numberOfEdges};
+
+        return vertexAndEdges;
     }
 
 }

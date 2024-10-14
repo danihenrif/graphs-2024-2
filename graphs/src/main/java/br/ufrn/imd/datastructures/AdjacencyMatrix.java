@@ -114,28 +114,38 @@ public class AdjacencyMatrix {
         Integer numberOfArches = numberOfVertexAndEdges[1];
 
         DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
-        // Extrair os arcos da matriz de adjacência
-        directStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
 
-        // Preenche o miolo da pont
-        Integer searchedVertex = 1;
-        for (Integer key : directStar.getArches().keySet()) {
-            // Se o vértice origem for maior que vértice buscado pula
-            // o vértice pois ele não é origem de nenhum arco
-            if (directStar.getArches().get(key).getFirst() > searchedVertex) {
-                searchedVertex++;
+        int archIndex = 0;
+        Integer originVertex = 1;
+
+        out:
+        for (int i = 0; i < numberOfVertex; i++) {
+            //Caso um vértice  não seja origem de arco, atualiza a próxima origem a ser procurada
+            if(i > originVertex) {
+                originVertex++;
             }
-            if (Objects.equals(directStar.getArches().get(key).getFirst(), searchedVertex) && searchedVertex < numberOfVertex) {
-                // se achar o vértice como origem preenche a pont dele com o numero do arco
-                directStar.getPont()[searchedVertex] = key;
-                searchedVertex++;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(i).get(j) == 1) {
+                    directStar.getArches().get(archIndex).add(i);
+                    directStar.getArches().get(archIndex).add(j);
+
+                    if(i == originVertex) {
+                        directStar.getPont()[originVertex] = archIndex;
+                        originVertex++;
+                    }
+
+                    archIndex++;
+                }
+                if(archIndex >= numberOfArches) {
+                    break out; //Arcos encontrados
+                }
             }
         }
 
-        // Preencher as pont q não foram achadas com o valor dos vizinhos
-        for (int i = 1; i < directStar.getPont().length; i++) {
+        // Preencher as posições nulas com o próximo valor válido
+        for (int i = 1; i < directStar.getPont().length - 1; i++) {
             if (directStar.getPont()[i] == null) {
-                directStar.getPont()[i] = directStar.getPont()[i + 1];
+                directStar.getPont()[i] = findNextNonNull(directStar.getPont(), i + 1);
             }
         }
 
@@ -148,32 +158,49 @@ public class AdjacencyMatrix {
         Integer numberOfArches = numberOfVertexAndEdges[1];
 
         ReverseStar reverseStar = new ReverseStar(numberOfArches, numberOfVertex);
-        // Extrair os arcos da matriz de adjacência
-        reverseStar.extractArches(this.matrix, numberOfVertex, numberOfArches);
 
-        // Preenche o miolo da pont
-        Integer searchedVertex = 1;
-        for (Integer key : reverseStar.getArches().keySet()) {
-            // Se o vértice origem for maior que vértice buscado pula
-            // o vértice pois ele não é origem de nenhum arco
-            if (reverseStar.getArches().get(key).get(1) > searchedVertex) {
-                searchedVertex++;
+        int archIndex = 0;
+        Integer destinationVertex = 1;
+
+        out:
+        for (int i = 0; i < numberOfVertex; i++) {
+            //Caso um vértice  não seja origem de arco, atualiza a próxima origem a ser procurada
+            if(i > destinationVertex) {
+                destinationVertex++;
             }
-            if (Objects.equals(reverseStar.getArches().get(key).get(1), searchedVertex) && searchedVertex < numberOfVertex) {
-                // se achar o vértice como origem preenche a pont dele com o numero do arco
-                reverseStar.getPont()[searchedVertex] = key;
-                searchedVertex++;
+            for (int j = 0; j < numberOfVertex; j++) {
+                if(matrix.get(j).get(i) == 1) {
+                    reverseStar.getArches().get(archIndex).add(i);
+                    reverseStar.getArches().get(archIndex).add(j);
+
+                    if(i == destinationVertex) {
+                        reverseStar.getPont()[destinationVertex] = archIndex;
+                        destinationVertex++;
+                    }
+                    archIndex++;
+                }
+                if(archIndex >= numberOfArches) {
+                    break out; //Arcos encontrados
+                }
             }
         }
 
-        // Preencher as pont q não foram achadas com o valor dos vizinhos
-        for (int i = 1; i < reverseStar.getPont().length; i++) {
+        // Preencher as posições nulas com o próximo valor válido
+        for (int i = 1; i < reverseStar.getPont().length - 1; i++) {
             if (reverseStar.getPont()[i] == null) {
-                reverseStar.getPont()[i] = reverseStar.getPont()[i + 1];
+                reverseStar.getPont()[i] = findNextNonNull(reverseStar.getPont(), i + 1);
             }
         }
 
         return reverseStar;
+    }
+
+    // Método recursivo para buscar o próximo pont não nulo
+    private Integer findNextNonNull(Integer[] pont, int index) {
+        if (pont[index] != null) {
+            return pont[index]; // Retorna o primeiro valor não nulo encontrado
+        }
+        return findNextNonNull(pont, index + 1); // Continua buscando recursivamente
     }
 
     public List<Integer> generatePrufferCode() {
