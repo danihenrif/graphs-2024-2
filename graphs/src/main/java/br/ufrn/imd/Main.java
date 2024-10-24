@@ -11,7 +11,7 @@ public class Main {
         Graph graph = new Graph();
         GraphLoader.load(graph, "src/grafo2" + ".txt");
 
-        // Questões 9 e 10 - Manipulação de Grafo Simples
+        // Questões  1 9 e 10 - Manipulação de Grafo Simples (REPRESENTAÇÃO DO GRAFO EM LISTA DE ADJACÊNCIA)
         System.out.println(graph.toString());
         System.out.println(graph.removeVertex(1));
         System.out.println(graph.toString());
@@ -19,20 +19,25 @@ public class Main {
         System.out.println(graph.addVertex(4));
         System.out.println();
 
-        System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
+        // Questão 2 - Matriz de adjacência
+        AdjacencyList adjacencyListToConvert = new AdjacencyList().generateRandomAdjacencyList(4, false);
+        System.out.println("Adjacency Matrix : \n" +
+                adjacencyListToConvert.undirectedAdjacencyListToAdjacencyMatrix()
+        );
 
+        // Questão 3 - Matriz de incidência
+        GraphLoader.load(graph, "src/grafo2" + ".txt");
+        AdjacencyList adjacencyListToConvert2 = graph.getAdjacencyList();
+        System.out.println("Incidence Matrix : \n" +
+                adjacencyListToConvert2.directedAdjacencyListToIncidenceMatrix()
+        );
         // Questão 4 - Matriz de Adjacência para Lista de Adjacência vice-versa
         AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
         System.out.println("Adjacency List : \n" +
                 adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList()
         );
-        AdjacencyList adjacencyListToConvert = new AdjacencyList().generateRandomAdjacencyList(4, false);
-        System.out.println("Adjacency List : \n" +
-                adjacencyListToConvert.undirectedAdjacencyListToAdjacencyMatrix()
-        );
 
-
-        // Questão 3 - Matriz de Adjacência para Matriz de Incidência
+        // Questão bônus - Matriz de Adjacência para Matriz de Incidência (estava na antiga versão do trabalho)
         //adjacencyMatrixToConvert.setDirected(true);
         System.out.println("Adjacency Matrix to Convert:");
         System.out.println(adjacencyMatrixToConvert.toString());

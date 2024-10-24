@@ -119,9 +119,9 @@ public class AdjacencyMatrix {
     public DirectStar adjacencyMatrixToDirectStar() {
         Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
         Integer numberOfVertex = numberOfVertexAndEdges[0];
-        Integer numberOfArches = numberOfVertexAndEdges[1];
+        Integer numberOfArcs = numberOfVertexAndEdges[1];
 
-        DirectStar directStar = new DirectStar(numberOfArches, numberOfVertex);
+        DirectStar directStar = new DirectStar(numberOfArcs, numberOfVertex);
 
         int archIndex = 0;
         Integer originVertex = 1;
@@ -134,8 +134,8 @@ public class AdjacencyMatrix {
             }
             for (int j = 0; j < numberOfVertex; j++) {
                 if(matrix.get(i).get(j) == 1) {
-                    directStar.getArches().get(archIndex).add(i);
-                    directStar.getArches().get(archIndex).add(j);
+                    directStar.getArcs().get(archIndex).add(i);
+                    directStar.getArcs().get(archIndex).add(j);
 
                     if(i == originVertex) {
                         directStar.getPont()[originVertex] = archIndex;
@@ -144,7 +144,7 @@ public class AdjacencyMatrix {
 
                     archIndex++;
                 }
-                if(archIndex >= numberOfArches) {
+                if(archIndex >= numberOfArcs) {
                     break out; //Arcos encontrados
                 }
             }
@@ -163,9 +163,9 @@ public class AdjacencyMatrix {
     public ReverseStar adjacencyMatrixToReverseStar() {
         Integer[] numberOfVertexAndEdges = GraphUtils.numberOfVertexAndEdges(matrix);
         Integer numberOfVertex = numberOfVertexAndEdges[0];
-        Integer numberOfArches = numberOfVertexAndEdges[1];
+        Integer numberOfArcs = numberOfVertexAndEdges[1];
 
-        ReverseStar reverseStar = new ReverseStar(numberOfArches, numberOfVertex);
+        ReverseStar reverseStar = new ReverseStar(numberOfArcs, numberOfVertex);
 
         int archIndex = 0;
         Integer destinationVertex = 1;
@@ -178,8 +178,8 @@ public class AdjacencyMatrix {
             }
             for (int j = 0; j < numberOfVertex; j++) {
                 if(matrix.get(j).get(i) == 1) {
-                    reverseStar.getArches().get(archIndex).add(i);
-                    reverseStar.getArches().get(archIndex).add(j);
+                    reverseStar.getArcs().get(archIndex).add(i);
+                    reverseStar.getArcs().get(archIndex).add(j);
 
                     if(i == destinationVertex) {
                         reverseStar.getPont()[destinationVertex] = archIndex;
@@ -187,7 +187,7 @@ public class AdjacencyMatrix {
                     }
                     archIndex++;
                 }
-                if(archIndex >= numberOfArches) {
+                if(archIndex >= numberOfArcs) {
                     break out; //Arcos encontrados
                 }
             }

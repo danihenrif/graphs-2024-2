@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ReverseStar extends Star {
-    public ReverseStar(Integer numberOfArches, Integer numberOfVertex) {
-        super(numberOfArches, numberOfVertex);
+    public ReverseStar(Integer numberOfArcs, Integer numberOfVertex) {
+        super(numberOfArcs, numberOfVertex);
     }
 
     public Integer[] getPont() {
         return pont;
     }
 
-    public Map<Integer, List<Integer>> getArches() {
-        return arches;
+    public Map<Integer, List<Integer>> getArcs() {
+        return arcs;
     }
 }

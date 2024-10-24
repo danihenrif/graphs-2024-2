@@ -146,8 +146,8 @@ public class AdjacencyList {
     }
 
     public AdjacencyMatrix undirectedAdjacencyListToAdjacencyMatrix() {
-        AdjacencyMatrix adjMatrix = new AdjacencyMatrix(getSize());
-        for(int i = 0 ; i < getSize() ; i++){
+        AdjacencyMatrix adjMatrix = new AdjacencyMatrix(numberOfVertix());
+        for(int i = 0 ; i < numberOfVertix() ; i++){
             for(Integer adj : list.get(i)){
                 adjMatrix.getMatrix().get(i).set(adj, 1);
                 adjMatrix.getMatrix().get(adj).set(i, 1);
@@ -156,8 +156,40 @@ public class AdjacencyList {
         return adjMatrix;
     }
 
-    public Integer getSize() {
+    public IncidenceMatrix directedAdjacencyListToIncidenceMatrix() {
+        Integer vertix = numberOfVertix();
+        Integer arcs = numberOfArcs();
+
+        IncidenceMatrix incMatrix = new IncidenceMatrix(vertix, arcs);
+        int arcIndex = 0; // Para rastrear a posição do arco na matriz de incidência
+
+        for (int i = 0; i < numberOfVertix(); i++) {
+            for (Integer adj : list.get(i)) {
+                // Para cada arco de i para adj
+                incMatrix.getMatrix().get(arcIndex).set(i, -1); // -1 na linha do vértice de origem
+                incMatrix.getMatrix().get(arcIndex).set(adj, 1); // +1 na linha do vértice de destino
+                arcIndex++; // Avançar para a próxima coluna na matriz de incidência
+            }
+        }
+        return incMatrix;
+    }
+
+    public Integer numberOfVertix() {
         return list.size();
+    }
+
+    /**
+     * @return Quantidade de arcos em um grafo direcionado
+     */
+    public Integer numberOfArcs() {
+        int count = 0; // Usar 'int' para contagem
+        for (int i = 0; i < numberOfVertix(); i++) {
+            Set<Integer> adjacents = list.get(i); // Obter os adjacentes para o vértice i
+            if (adjacents != null) { // Verifica se não é nulo
+                count += adjacents.size(); // Conta o número de arcos saindo do vértice i
+            }
+        }
+        return count; // Se não for direcionado, divide por 2
     }
 }
 
