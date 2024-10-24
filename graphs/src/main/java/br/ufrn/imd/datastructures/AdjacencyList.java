@@ -189,7 +189,7 @@ public class AdjacencyList {
                 count += adjacents.size(); // Conta o número de arcos saindo do vértice i
             }
         }
-        return count; // Se não for direcionado, divide por 2
+        return isDirected ? count : count/2; // Se não for direcionado, divide por 2
     }
 }
 

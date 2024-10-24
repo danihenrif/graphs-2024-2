@@ -10,6 +10,12 @@ public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
         GraphLoader.load(graph, "src/grafo2" + ".txt");
+        System.out.println();
+
+        //Questões 7 e 8
+        System.out.println("Número de arcos \n" + graph.getAdjacencyList().numberOfArcs());
+        System.out.println("Número de vértices \n" + graph.getAdjacencyList().numberOfVertix());
+        System.out.println();
 
         // Questões  1 9 e 10 - Manipulação de Grafo Simples (REPRESENTAÇÃO DO GRAFO EM LISTA DE ADJACÊNCIA)
         System.out.println(graph.toString());
@@ -18,6 +24,7 @@ public class Main {
 
         System.out.println(graph.addVertex(4));
         System.out.println();
+
 
         // Questão 2 - Matriz de adjacência
         AdjacencyList adjacencyListToConvert = new AdjacencyList().generateRandomAdjacencyList(4, false);
