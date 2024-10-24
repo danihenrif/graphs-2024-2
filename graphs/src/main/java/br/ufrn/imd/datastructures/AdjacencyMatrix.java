@@ -15,10 +15,18 @@ public class AdjacencyMatrix {
         this.matrix = matrix;
     }
 
-    public static AdjacencyList undirectedAdjacencyMatrixToAdjacencyList(AdjacencyMatrix adjMatrix) {
-        GraphUtils.validateAdjacencyMatrix(adjMatrix);
+    public AdjacencyMatrix(Integer size) {
+        this.matrix = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            List<Integer> row = new ArrayList<>(Collections.nCopies(size, 0));
+            matrix.add(row);
+        }
+    }
 
-        int numberOfVertex = adjMatrix.getMatrix().size();
+    public AdjacencyList undirectedAdjacencyMatrixToAdjacencyList() {
+        GraphUtils.validateAdjacencyMatrix(matrix);
+
+        int numberOfVertex = matrix.size();
 
         // Inicializar a lista de adjacência
         Map<Integer, Set<Integer>> adjlist = new HashMap<>();
@@ -30,7 +38,7 @@ public class AdjacencyMatrix {
         for (int i = 0; i < numberOfVertex; i++) {
             for (int j = 0; j < numberOfVertex; j++) {
                 // Se há uma aresta entre os vértices i e j
-                if (adjMatrix.getMatrix().get(i).get(j) == 1) {
+                if (matrix.get(i).get(j) == 1) {
                     adjlist.get(i).add(j); // Adiciona j à lista de adjacência de i
                     adjlist.get(j).add(i); // Adiciona i à lista de adjacência de j (grafo não direcionado)
                 }

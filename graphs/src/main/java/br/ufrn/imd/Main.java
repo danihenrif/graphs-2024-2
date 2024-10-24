@@ -1,9 +1,6 @@
 package br.ufrn.imd;
 
-import br.ufrn.imd.datastructures.AdjacencyMatrix;
-import br.ufrn.imd.datastructures.DirectStar;
-import br.ufrn.imd.datastructures.IncidenceMatrix;
-import br.ufrn.imd.datastructures.ReverseStar;
+import br.ufrn.imd.datastructures.*;
 import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
 
@@ -14,7 +11,7 @@ public class Main {
         Graph graph = new Graph();
         GraphLoader.load(graph, "src/grafo2" + ".txt");
 
-        // Questão 1 - Manipulação de Grafo Simples
+        // Questões 9 e 10 - Manipulação de Grafo Simples
         System.out.println(graph.toString());
         System.out.println(graph.removeVertex(1));
         System.out.println(graph.toString());
@@ -24,11 +21,16 @@ public class Main {
 
         System.out.println(GraphLoader.load(graph, "src/grafo" + ".txt"));
 
-        // Questão 2 - Matriz de Adjacência para Lista de Adjacência
+        // Questão 4 - Matriz de Adjacência para Lista de Adjacência vice-versa
         AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
         System.out.println("Adjacency List : \n" +
-                adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList(adjacencyMatrixToConvert)
+                adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList()
         );
+        AdjacencyList adjacencyListToConvert = new AdjacencyList().generateRandomAdjacencyList(4, false);
+        System.out.println("Adjacency List : \n" +
+                adjacencyListToConvert.undirectedAdjacencyListToAdjacencyMatrix()
+        );
+
 
         // Questão 3 - Matriz de Adjacência para Matriz de Incidência
         //adjacencyMatrixToConvert.setDirected(true);
@@ -39,6 +41,8 @@ public class Main {
         IncidenceMatrix incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
         System.out.println(incidenceMatrix.toString());
 
+
+        ///////////////////////////////Questões 20 e 21//////////////////////////////////////
         //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
         //Exemplo random
         System.out.println("Adjacency Matrix to Convert to Direct Star:");
@@ -79,8 +83,11 @@ public class Main {
 
         System.out.println("Converted, result :");
         System.out.println(reverseStar);
+        ///////////////////////////////////////////////////////////////////////////////////////////
 
-        // Questão 5 - Gerar Código de Prüffer
+
+        /////////////////////////////////////Questão 13 /////////////////////////////////////////
+        // Gerar Código de Prüffer
 
         AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(GraphUtils.treeMatrix);
         System.out.println("Matriz de Adjacência da Árvore:");
@@ -99,13 +106,15 @@ public class Main {
         List<Integer> prufferCode2 = treeAdjacencyMatrix2.generatePrufferCode();
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode2);
+        ///////////////////////////////////////////////////////////////////////////////////////////
 
+
+        ///////////////////////////////Questão 22////////////////////////////////////////////////
         // Questão de busca em profundidade com matriz de adjacência
         System.out.println("\nTeste da Busca em Profundidade (DFS):");
         adjacencyMatrixToConvert.depthFirstSearch(0);
         AdjacencyMatrix slideExample = new AdjacencyMatrix(GraphUtils.matrix3);
         slideExample.depthFirstSearch(6);
-
 
         // Questão de busca em profundidade com lista de adjacência
         System.out.println("\nTeste da Busca em Profundidade com Recorrência:");
@@ -114,5 +123,6 @@ public class Main {
         // Questão de busca em profundidade com lista de adjacência salvando o predecessor
         System.out.println("\nTeste da Busca em Profundidade com Predecessor:");
         graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
+        ///////////////////////////////////////////////////////////////////////////////////////////
     }
 }

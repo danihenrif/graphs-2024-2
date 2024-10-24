@@ -119,4 +119,45 @@ public class AdjacencyList {
             }
         }
     }
+
+    public AdjacencyList generateRandomAdjacencyList(int size, boolean isDirected) {
+        Random random = new Random();
+
+        // Inicializa a lista de adjacência para cada vértice
+        for (int i = 0; i < size; i++) {
+            list.putIfAbsent(i, new HashSet<>()); // Garante que cada vértice tenha um conjunto associado
+        }
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i != j && random.nextInt(2) == 1) { // Evitar laços e gerar aresta aleatória
+                    list.get(i).add(j); // Adiciona aresta de i para j
+
+                    if (!isDirected) {
+                        list.get(j).add(i); // No grafo não direcionado, adicionar aresta de j para i
+                    }
+                }
+            }
+        }
+
+        System.out.println("Generated adjacency list: ");
+        System.out.println(this);
+        return this;
+    }
+
+    public AdjacencyMatrix undirectedAdjacencyListToAdjacencyMatrix() {
+        AdjacencyMatrix adjMatrix = new AdjacencyMatrix(getSize());
+        for(int i = 0 ; i < getSize() ; i++){
+            for(Integer adj : list.get(i)){
+                adjMatrix.getMatrix().get(i).set(adj, 1);
+                adjMatrix.getMatrix().get(adj).set(i, 1);
+            }
+        }
+        return adjMatrix;
+    }
+
+    public Integer getSize() {
+        return list.size();
+    }
 }
+
