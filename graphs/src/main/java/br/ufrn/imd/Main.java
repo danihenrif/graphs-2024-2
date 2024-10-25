@@ -3,6 +3,7 @@ package br.ufrn.imd;
 import br.ufrn.imd.datastructures.*;
 import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
+
 import java.util.List;
 
 public class Main {
@@ -137,7 +138,7 @@ public class Main {
         graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
         ///////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////////////////////Questão 5////////////////////////////////////////////////
+        ///////////////////////////////Questão 6////////////////////////////////////////////////
         // Questão de calculo para grau de cada vertice (usando lista de adjacência)
         System.out.println("\nTeste do Grau de cada Vertice:");
         graph.getAdjacencyList().degreeVertices();
