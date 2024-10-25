@@ -3,13 +3,13 @@ package br.ufrn.imd;
 import br.ufrn.imd.datastructures.*;
 import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
-
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-        GraphLoader.load(graph, "src/grafo2" + ".txt");
+        //GraphLoader.load(graph, "src/grafo2" + ".txt");
+        GraphLoader.load(graph, "C:\\Projetos\\grafos\\graphs-2024-2\\graphs\\src\\grafo2" + ".txt");
         System.out.println();
 
         //Questões 7 e 8
@@ -34,7 +34,8 @@ public class Main {
         );
 
         // Questão 3 - Matriz de incidência
-        GraphLoader.load(graph, "src/grafo2" + ".txt");
+        //GraphLoader.load(graph, "src/grafo2" + ".txt");
+        GraphLoader.load(graph, "C:\\Projetos\\grafos\\graphs-2024-2\\graphs\\src\\grafo2" + ".txt");
         AdjacencyList adjacencyListToConvert2 = graph.getAdjacencyList();
         System.out.println("Incidence Matrix : \n" +
                 adjacencyListToConvert2.directedAdjacencyListToIncidenceMatrix()
@@ -138,10 +139,38 @@ public class Main {
         graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
         ///////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////////////////////Questão 6////////////////////////////////////////////////
-        // Questão de calculo para grau de cada vertice (usando lista de adjacência)
+        ///////////////////////////////Questão 5 e 6////////////////////////////////////////////////
+        // Questão de calculo para grau de cada vértice (usando lista de adjacência)
         System.out.println("\nTeste do Grau de cada Vertice:");
-        graph.getAdjacencyList().degreeVertices();
+        graph.getAdjacencyList().degreeVertex();
+
+        // Questão para determinar se dois vértices são adjacentes (usando lista de adjacência)
+        System.out.println("\nTeste de Adjacência dos Vertices 1 e 2:");
+        graph.getAdjacencyList().adjacencyVertex(1,2);
+
+        System.out.println("\nTeste de Adjacência dos Vertices 1 e 3:");
+        graph.getAdjacencyList().adjacencyVertex(1,3);
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////Questão 11////////////////////////////////////////////////
+        // Questão para determinar se um grafo é conexo ou não (usando lista de adjacência e DFS)
+        System.out.println("\nTeste de Conexidade do Grafo:");
+        if (graph.getAdjacencyList().connectivity()){
+            System.out.println("\nO grafo é conexo");
+        }else{
+            System.out.println("\nO grafo não é conexo");
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////Questão 12////////////////////////////////////////////////
+        // Questão para determinar se um grafo é bipartido ou não (usando lista de adjacência e DFS)
+        System.out.println(graph.getAdjacencyList().toString());
+        System.out.println("\nTeste de Bipartição do Grafo:");
+        if (graph.getAdjacencyList().bipartite()){
+            System.out.println("O grafo é bipartido");
+        }else{
+            System.out.println("O grafo não é bipartido");
+        }
         ///////////////////////////////////////////////////////////////////////////////////////////
     }
 }

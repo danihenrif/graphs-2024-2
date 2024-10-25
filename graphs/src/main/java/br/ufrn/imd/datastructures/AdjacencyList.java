@@ -78,16 +78,16 @@ public class AdjacencyList {
         dfs(vertice, visited, stack);
     }
 
-    private void dfs(int vertice, Set<Integer> visited, Stack<Integer> stack) {
-        visited.add(vertice);
-        stack.push(vertice);
+    private void dfs(int vertex, Set<Integer> visited, Stack<Integer> stack) {
+        visited.add(vertex);
+        stack.push(vertex);
 
-        for (int w : list.get(vertice)) {
+        for (int w : list.get(vertex)) {
             if (!visited.contains(w)) {
-                System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
+                System.out.println("Visitando aresta (" + vertex + ", " + w + ")");
                 dfs(w, visited, stack);
-            } else if (stack.contains(w) && !((stack.indexOf(vertice) - stack.indexOf(w)) == 1)) {
-                System.out.println("Visitando aresta (" + vertice + ", " + w + ")");
+            } else if (stack.contains(w) && !((stack.indexOf(vertex) - stack.indexOf(w)) == 1)) {
+                System.out.println("Visitando aresta (" + vertex + ", " + w + ")");
             }
         }
 
@@ -192,34 +192,33 @@ public class AdjacencyList {
         return isDirected ? count : count/2; // Se não for direcionado, divide por 2
     }
 
-    public void degreeVertices(){
+    public void degreeVertex(){
         if (isDirected){
             /* Para Grafos direcionados */
             Map<Integer, Integer> inDegreeMap = new HashMap<>();
-            for (Integer vertice : list.keySet()) {
-                inDegreeMap.put(vertice, 0);
+            for (Integer vertex : list.keySet()) {
+                inDegreeMap.put(vertex, 0);
             }
             for (Set<Integer> set : list.values()) {
-                for (Integer vertice : set) {
-                    inDegreeMap.put(vertice, inDegreeMap.get(vertice) + 1);
+                for (Integer vertex : set) {
+                    inDegreeMap.put(vertex, inDegreeMap.get(vertex) + 1);
                 }
             }
             for (Map.Entry<Integer, Set<Integer>> aux : list.entrySet()) {
-                int vertice = aux.getKey();
+                int vertex = aux.getKey();
                 int outDegree = aux.getValue().size();
-                int inDegree = inDegreeMap.get(vertice);
-                System.out.println("O vértice "+ vertice +" tem grau de saída " + outDegree + " e grau de entrada " +inDegree);
+                int inDegree = inDegreeMap.get(vertex);
+                System.out.println("O vértice "+ vertex +" tem grau de saída " + outDegree + " e grau de entrada " +inDegree);
             }
 
         }else {
             /* Para Grafos não direcionados */
             for (Map.Entry<Integer, Set<Integer>> aux : list.entrySet()) {
-                int vertice = aux.getKey();
+                int vertex = aux.getKey();
                 int degree = aux.getValue().size();
-                System.out.println("Vértice " + vertice + " tem grau " + degree);
+                System.out.println("Vértice " + vertex + " tem grau " + degree);
             }
         }
-
     }
 
     public void adjacencyVertex(int vertice1, int vertice2){
@@ -246,6 +245,40 @@ public class AdjacencyList {
         }else{
             return false;
         }
+    }
+
+    public boolean bipartite(){
+        Map<Integer, Integer> colors = new HashMap<>();
+
+        for (int vertex : list.keySet()) {
+            if (!colors.containsKey(vertex)) {
+                if (!bfsColor(vertex, colors)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean bfsColor (int firstVertex, Map<Integer, Integer> colors){
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(firstVertex);
+        colors.put(firstVertex, 0);
+
+        while (!queue.isEmpty()){
+            int vertex = queue.poll();
+            int color = colors.get(vertex);
+
+            for (Integer adj : list.get(vertex)) {
+                if (!colors.containsKey(adj)) {
+                    colors.put(adj, 1 - color);
+                    queue.add(adj);
+                } else if (colors.get(adj) == color) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 
