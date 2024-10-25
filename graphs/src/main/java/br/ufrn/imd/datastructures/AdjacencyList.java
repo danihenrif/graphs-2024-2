@@ -221,5 +221,31 @@ public class AdjacencyList {
         }
 
     }
+
+    public void adjacencyVertex(int vertice1, int vertice2){
+        if(list.get(vertice1).contains(vertice2) || list.get(vertice2).contains(vertice1)){
+            System.out.println("Os vertices são adjacentes.");
+        }else{
+            System.out.println("Os vertices não são adjacentes.");
+        }
+    }
+
+    public boolean connectivity(){
+        if (list.isEmpty()){
+            return true;
+        }
+
+        Set<Integer> visited = new HashSet<>();
+        Integer firstVertex = list.keySet().iterator().next();
+        Stack<Integer> stack = new Stack<>();
+
+        dfs(firstVertex, visited, stack);
+
+        if (visited.size() == list.size()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
