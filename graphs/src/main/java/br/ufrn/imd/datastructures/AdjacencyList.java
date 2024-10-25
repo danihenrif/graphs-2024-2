@@ -191,5 +191,35 @@ public class AdjacencyList {
         }
         return isDirected ? count : count/2; // Se não for direcionado, divide por 2
     }
+
+    public void degreeVertices(){
+        if (isDirected){
+            /* Para Grafos direcionados */
+            Map<Integer, Integer> inDegreeMap = new HashMap<>();
+            for (Integer vertice : list.keySet()) {
+                inDegreeMap.put(vertice, 0);
+            }
+            for (Set<Integer> set : list.values()) {
+                for (Integer vertice : set) {
+                    inDegreeMap.put(vertice, inDegreeMap.get(vertice) + 1);
+                }
+            }
+            for (Map.Entry<Integer, Set<Integer>> aux : list.entrySet()) {
+                int vertice = aux.getKey();
+                int outDegree = aux.getValue().size();
+                int inDegree = inDegreeMap.get(vertice);
+                System.out.println("O vértice "+ vertice +" tem grau de saída " + outDegree + " e grau de entrada " +inDegree);
+            }
+
+        }else {
+            /* Para Grafos não direcionados */
+            for (Map.Entry<Integer, Set<Integer>> aux : list.entrySet()) {
+                int vertice = aux.getKey();
+                int degree = aux.getValue().size();
+                System.out.println("Vértice " + vertice + " tem grau " + degree);
+            }
+        }
+
+    }
 }
 

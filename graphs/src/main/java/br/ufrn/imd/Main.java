@@ -3,7 +3,6 @@ package br.ufrn.imd;
 import br.ufrn.imd.datastructures.*;
 import br.ufrn.imd.util.GraphLoader;
 import br.ufrn.imd.util.GraphUtils;
-
 import java.util.List;
 
 public class Main {
@@ -16,6 +15,7 @@ public class Main {
         System.out.println("Número de arcos \n" + graph.getAdjacencyList().numberOfArcs());
         System.out.println("Número de vértices \n" + graph.getAdjacencyList().numberOfVertix());
         System.out.println();
+
 
         // Questões  1 9 e 10 - Manipulação de Grafo Simples (REPRESENTAÇÃO DO GRAFO EM LISTA DE ADJACÊNCIA)
         System.out.println(graph.toString());
@@ -135,6 +135,12 @@ public class Main {
         // Questão de busca em profundidade com lista de adjacência salvando o predecessor
         System.out.println("\nTeste da Busca em Profundidade com Predecessor:");
         graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////Questão 5////////////////////////////////////////////////
+        // Questão de calculo para grau de cada vertice (usando lista de adjacência)
+        System.out.println("\nTeste do Grau de cada Vertice:");
+        graph.getAdjacencyList().degreeVertices();
         ///////////////////////////////////////////////////////////////////////////////////////////
     }
 }
