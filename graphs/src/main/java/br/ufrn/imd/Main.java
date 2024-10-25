@@ -1,173 +1,131 @@
 package br.ufrn.imd;
 
 import br.ufrn.imd.datastructures.*;
-import br.ufrn.imd.util.GraphLoader;
-import br.ufrn.imd.util.GraphUtils;
-import java.util.List;
+import br.ufrn.imd.util.CarregadorGrafo;
 
 public class Main {
+
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_AZUL = "\u001B[34m";
+    private static final String ANSI_VERDE = "\u001B[32m";
+    private static final String ANSI_AMARELO = "\u001B[33m";
+
     public static void main(String[] args) {
-        Graph graph = new Graph();
-        GraphLoader.load(graph, "src/grafo2" + ".txt");
-        System.out.println();
-
-        //Questões 7 e 8
-        System.out.println("Número de arcos \n" + graph.getAdjacencyList().numberOfArcs());
-        System.out.println("Número de vértices \n" + graph.getAdjacencyList().numberOfVertix());
-        System.out.println();
-
-
-        // Questões  1 9 e 10 - Manipulação de Grafo Simples (REPRESENTAÇÃO DO GRAFO EM LISTA DE ADJACÊNCIA)
-        System.out.println(graph.toString());
-        System.out.println(graph.removeVertex(1));
-        System.out.println(graph.toString());
-
-        System.out.println(graph.addVertex(4));
-        System.out.println();
-
-
-        // Questão 2 - Matriz de adjacência
-        AdjacencyList adjacencyListToConvert = new AdjacencyList().generateRandomAdjacencyList(4, false);
-        System.out.println("Adjacency Matrix : \n" +
-                adjacencyListToConvert.undirectedAdjacencyListToAdjacencyMatrix()
-        );
-
-        // Questão 3 - Matriz de incidência
-        GraphLoader.load(graph, "src/grafo2" + ".txt");
-        AdjacencyList adjacencyListToConvert2 = graph.getAdjacencyList();
-        System.out.println("Incidence Matrix : \n" +
-                adjacencyListToConvert2.directedAdjacencyListToIncidenceMatrix()
-        );
-        // Questão 4 - Matriz de Adjacência para Lista de Adjacência vice-versa
-        AdjacencyMatrix adjacencyMatrixToConvert = new AdjacencyMatrix().generateRandomAdjacencyMatrix(4);
-        System.out.println("Adjacency List : \n" +
-                adjacencyMatrixToConvert.undirectedAdjacencyMatrixToAdjacencyList()
-        );
-
-        // Questão bônus - Matriz de Adjacência para Matriz de Incidência (estava na antiga versão do trabalho)
-        //adjacencyMatrixToConvert.setDirected(true);
-        System.out.println("Adjacency Matrix to Convert:");
-        System.out.println(adjacencyMatrixToConvert.toString());
-
-        System.out.println("Converted, result :");
-        IncidenceMatrix incidenceMatrix = adjacencyMatrixToConvert.adjacencyMatrixToIncidenceMatrix();
-        System.out.println(incidenceMatrix.toString());
-
-
-        ///////////////////////////////Questões 20 e 21//////////////////////////////////////
-        //Questão 4 - Matriz de adjacência para Estrela direta e Estrela reversa
-        //Exemplo random
-        System.out.println("Adjacency Matrix to Convert to Direct Star:");
-        System.out.println(adjacencyMatrixToConvert.toString());
-
-        System.out.println("Converted, result :");
-        DirectStar directStar = adjacencyMatrixToConvert.adjacencyMatrixToDirectStar();
-        System.out.println(directStar);
 
         System.out.println();
+        Grafo grafoOriginal = new Grafo();
+        CarregadorGrafo.carregar(grafoOriginal, "graphs/src/grafo2.txt");
 
-        //Exemplo do slide
-        //Matriz para estrela direta
-        System.out.println("Adjacency Matrix to Convert to Direct Star:");
-        AdjacencyMatrix adjacencyMatrix = new AdjacencyMatrix(GraphUtils.matrix);
-        System.out.println(adjacencyMatrix.toString());
+        imprimirCabecalho("ANÁLISE DE GRAFOS");
 
-        DirectStar directStar1 = adjacencyMatrix.adjacencyMatrixToDirectStar();
+        imprimirSecao("Informações Básicas");
+        imprimirMetrica("Número de arcos", grafoOriginal.getListaAdjacencia().numeroDeArcos());
+        imprimirMetrica("Número de vértices", grafoOriginal.getListaAdjacencia().numeroDeVertices());
+        imprimirMetrica("Número de pontos de articulação",
+                grafoOriginal.getListaAdjacencia().encontrarPontosArticulacao());
 
-        System.out.println("Converted, result :");
-        System.out.println(directStar1);
+        Grafo grafoManipulacao = new Grafo();
+        CarregadorGrafo.carregar(grafoManipulacao, "graphs/src/grafo2.txt");
 
-        //Matriz para estrela direta duas linhas em branco consecultivas
-        System.out.println("Adjacency Matrix to Convert to Direct Star (with two consecutive vertices that are not the origin):");
-        AdjacencyMatrix adjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.matrix2);
-        System.out.println(adjacencyMatrix2.toString());
+        imprimirSecao("Manipulação do Grafo");
+        imprimirSubcabecalho("Estado Inicial do Grafo");
+        System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
-        DirectStar directStar2 = adjacencyMatrix2.adjacencyMatrixToDirectStar();
+        imprimirSubcabecalho("Após Remover Vértice 1");
+        grafoManipulacao.removerVertice(1);
+        System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
-        System.out.println("Converted, result :");
-        System.out.println(directStar2);
+        imprimirSubcabecalho("Após Adicionar Vértice 4");
+        grafoManipulacao.adicionarVertice(4);
+        System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
-        //Estrela reversa (Exemplo do livro)
-        System.out.println("Adjacency Matrix to Convert to Reverse Star:");
-        System.out.println(adjacencyMatrix.toString());
+        imprimirSecao("Conversões de Representação");
 
-        ReverseStar reverseStar = adjacencyMatrix.adjacencyMatrixToReverseStar();
+        ListaAdjacencia listaAdjacenciaConverter = new ListaAdjacencia().gerarListaAdjacenciaAleatoria(4, false);
+        imprimirSubcabecalho("Matriz de Adjacência (Grafo Aleatório 4x4)");
+        System.out.println("Lista de Adjacência gerada:");
+        System.out.println(formatarRepresentacaoGrafo(listaAdjacenciaConverter.toString()));
+        System.out.println("\nMatriz de Adjacência resultante:");
+        System.out.println(formatarMatriz(listaAdjacenciaConverter.converterParaMatrizAdjacencia().toString()));
 
-        System.out.println("Converted, result :");
-        System.out.println(reverseStar);
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        imprimirSubcabecalho("Matriz de Incidência (Grafo Original)");
+        System.out
+                .println(formatarMatriz(grafoOriginal.getListaAdjacencia().converterParaMatrizIncidencia().toString()));
 
+        Grafo grafoPropriedade = new Grafo();
+        CarregadorGrafo.carregar(grafoPropriedade, "graphs/src/grafo2.txt");
 
-        /////////////////////////////////////Questão 13 /////////////////////////////////////////
-        // Gerar Código de Prüffer
+        imprimirSecao("Análise de Propriedades do Grafo");
 
-        AdjacencyMatrix treeAdjacencyMatrix = new AdjacencyMatrix(GraphUtils.treeMatrix);
-        System.out.println("Matriz de Adjacência da Árvore:");
-        System.out.println(treeAdjacencyMatrix.toString());
+        imprimirResultadoPropriedade("Conexidade", grafoPropriedade.getListaAdjacencia().ehConexo());
 
-        List<Integer> prufferCode = treeAdjacencyMatrix.generatePrufferCode();
-        System.out.println("Código de Prüffer:");
-        System.out.println(prufferCode);
+        imprimirResultadoPropriedade("Bipartição", grafoPropriedade.getListaAdjacencia().ehBipartido());
 
-        //Exemplo do slide
+        imprimirSecao("Análise de Vértices");
 
-        AdjacencyMatrix treeAdjacencyMatrix2 = new AdjacencyMatrix(GraphUtils.treeMatrix2);
-        System.out.println("Matriz de Adjacência da Árvore:");
-        System.out.println(treeAdjacencyMatrix2.toString());
+        imprimirSubcabecalho("Grau dos Vértices");
+        grafoPropriedade.getListaAdjacencia().calcularGrauVertices();
 
-        List<Integer> prufferCode2 = treeAdjacencyMatrix2.generatePrufferCode();
-        System.out.println("Código de Prüffer:");
-        System.out.println(prufferCode2);
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        imprimirSubcabecalho("Testes de Adjacência");
+        imprimirTesteAdjacencia(1, 2);
+        System.out.println("Resultado:");
+        grafoPropriedade.getListaAdjacencia().verificarAdjacencia(1, 2);
 
+        imprimirTesteAdjacencia(1, 3);
+        System.out.println("Resultado:");
+        grafoPropriedade.getListaAdjacencia().verificarAdjacencia(1, 3);
 
-        ///////////////////////////////Questão 22////////////////////////////////////////////////
-        // Questão de busca em profundidade com matriz de adjacência
-        System.out.println("\nTeste da Busca em Profundidade (DFS):");
-        adjacencyMatrixToConvert.depthFirstSearch(0);
-        AdjacencyMatrix slideExample = new AdjacencyMatrix(GraphUtils.matrix3);
-        slideExample.depthFirstSearch(6);
+        imprimirSecao("Algoritmos de Busca");
 
-        // Questão de busca em profundidade com lista de adjacência
-        System.out.println("\nTeste da Busca em Profundidade com Recorrência:");
-        graph.getAdjacencyList().BuscaProfundidade(1);
+        Grafo grafoBusca = new Grafo();
+        CarregadorGrafo.carregar(grafoBusca, "graphs/src/grafo2.txt");
 
-        // Questão de busca em profundidade com lista de adjacência salvando o predecessor
-        System.out.println("\nTeste da Busca em Profundidade com Predecessor:");
-        graph.getAdjacencyList().BuscaProfundidadeComPredecessor(1);
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        imprimirSubcabecalho("Busca em Profundidade (DFS)");
+        System.out.println("Iniciando do vértice 1:");
+        grafoBusca.getListaAdjacencia().buscaEmProfundidade(1);
 
-        ///////////////////////////////Questão 5 e 6////////////////////////////////////////////////
-        // Questão de calculo para grau de cada vértice (usando lista de adjacência)
-        System.out.println("\nTeste do Grau de cada Vertice:");
-        graph.getAdjacencyList().degreeVertex();
+        imprimirSubcabecalho("Busca em Profundidade com Predecessor");
+        System.out.println("Iniciando do vértice 1:");
+        grafoBusca.getListaAdjacencia().buscaEmProfundidadeComPredecessor(1);
 
-        // Questão para determinar se dois vértices são adjacentes (usando lista de adjacência)
-        System.out.println("\nTeste de Adjacência dos Vertices 1 e 2:");
-        graph.getAdjacencyList().adjacencyVertex(1,2);
+        imprimirSubcabecalho("Busca em Largura a partir de um vértice");
+        System.out.println("Iniciando vértice 1:");
+        grafoBusca.getListaAdjacencia().buscaEmLargura(1);
+    }
 
-        System.out.println("\nTeste de Adjacência dos Vertices 1 e 3:");
-        graph.getAdjacencyList().adjacencyVertex(1,3);
-        ///////////////////////////////////////////////////////////////////////////////////////////
+    private static void imprimirCabecalho(String texto) {
+        String borda = "=".repeat(50);
+        System.out.println("\n" + ANSI_AZUL + borda);
+        System.out.println(" ".repeat((50 - texto.length()) / 2) + texto);
+        System.out.println(borda + ANSI_RESET + "\n");
+    }
 
-        ///////////////////////////////Questão 11////////////////////////////////////////////////
-        // Questão para determinar se um grafo é conexo ou não (usando lista de adjacência e DFS)
-        System.out.println("\nTeste de Conexidade do Grafo:");
-        if (graph.getAdjacencyList().connectivity()){
-            System.out.println("\nO grafo é conexo");
-        }else{
-            System.out.println("\nO grafo não é conexo");
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////
+    private static void imprimirSecao(String nomeSecao) {
+        System.out.println("\n" + ANSI_VERDE + ">>> " + nomeSecao);
+        System.out.println("-".repeat(50) + ANSI_RESET);
+    }
 
-        ///////////////////////////////Questão 12////////////////////////////////////////////////
-        // Questão para determinar se um grafo é bipartido ou não (usando lista de adjacência e DFS)
-        System.out.println("\nTeste de Bipartição do Grafo:");
-        if (graph.getAdjacencyList().bipartite()){
-            System.out.println("O grafo é bipartido");
-        }else{
-            System.out.println("O grafo não é bipartido");
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////
+    private static void imprimirSubcabecalho(String texto) {
+        System.out.println("\n" + ANSI_AMARELO + "--- " + texto + " ---" + ANSI_RESET);
+    }
+
+    private static void imprimirMetrica(String nome, int valor) {
+        System.out.printf("%-25s: %d%n", nome, valor);
+    }
+
+    private static void imprimirResultadoPropriedade(String nomePropriedade, boolean resultado) {
+        System.out.printf("%-25s: %s%n", nomePropriedade, resultado ? "Verdadeiro" : "Falso");
+    }
+
+    private static void imprimirTesteAdjacencia(int v1, int v2) {
+        System.out.printf("Teste de adjacência entre vértices %d e %d:%n", v1, v2);
+    }
+
+    private static String formatarRepresentacaoGrafo(String grafo) {
+        return "  " + grafo.replace("\n", "\n  ");
+    }
+
+    private static String formatarMatriz(String matriz) {
+        return "  " + matriz.replace("\n", "\n  ");
     }
 }
