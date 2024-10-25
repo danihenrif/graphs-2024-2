@@ -8,8 +8,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-        //GraphLoader.load(graph, "src/grafo2" + ".txt");
-        GraphLoader.load(graph, "C:\\Projetos\\grafos\\graphs-2024-2\\graphs\\src\\grafo2" + ".txt");
+        GraphLoader.load(graph, "src/grafo2" + ".txt");
         System.out.println();
 
         //Questões 7 e 8
@@ -34,8 +33,7 @@ public class Main {
         );
 
         // Questão 3 - Matriz de incidência
-        //GraphLoader.load(graph, "src/grafo2" + ".txt");
-        GraphLoader.load(graph, "C:\\Projetos\\grafos\\graphs-2024-2\\graphs\\src\\grafo2" + ".txt");
+        GraphLoader.load(graph, "src/grafo2" + ".txt");
         AdjacencyList adjacencyListToConvert2 = graph.getAdjacencyList();
         System.out.println("Incidence Matrix : \n" +
                 adjacencyListToConvert2.directedAdjacencyListToIncidenceMatrix()
@@ -164,7 +162,6 @@ public class Main {
 
         ///////////////////////////////Questão 12////////////////////////////////////////////////
         // Questão para determinar se um grafo é bipartido ou não (usando lista de adjacência e DFS)
-        System.out.println(graph.getAdjacencyList().toString());
         System.out.println("\nTeste de Bipartição do Grafo:");
         if (graph.getAdjacencyList().bipartite()){
             System.out.println("O grafo é bipartido");
