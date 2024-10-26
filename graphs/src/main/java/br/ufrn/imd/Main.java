@@ -24,6 +24,17 @@ public class Main {
         imprimirMetrica("Número de pontos de articulação",
                 grafoOriginal.getListaAdjacencia().encontrarPontosArticulacao());
 
+        // Adicionando seção de análise de ciclos
+        imprimirSecao("Análise de Ciclos");
+        CicloDetector detector = new CicloDetector(grafoOriginal.getListaAdjacencia());
+        detector.detectarCiclos();
+
+        imprimirMetrica("Número de ciclos", detector.numeroDeCiclos());
+        imprimirResultadoPropriedade("Possui ciclos", detector.possuiCiclos());
+
+        imprimirSubcabecalho("Detalhes dos Ciclos");
+        detector.imprimirCiclos();
+
         Grafo grafoManipulacao = new Grafo();
         CarregadorGrafo.carregar(grafoManipulacao, "graphs/src/grafo2.txt");
 
