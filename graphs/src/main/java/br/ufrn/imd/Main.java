@@ -32,17 +32,17 @@ public class Main {
         System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
         imprimirSubcabecalho("Após Remover Vértice 1");
-        grafoManipulacao.removerVertice(1);
+        grafoManipulacao.getListaAdjacencia().removerVertice(1);
         System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
         imprimirSubcabecalho("Após Adicionar Vértice 4");
-        grafoManipulacao.adicionarVertice(4);
+        grafoManipulacao.getListaAdjacencia().adicionarVertice(4);
         System.out.println(formatarRepresentacaoGrafo(grafoManipulacao.toString()));
 
         imprimirSecao("Conversões de Representação");
 
         ListaAdjacencia listaAdjacenciaConverter = new ListaAdjacencia().gerarListaAdjacenciaAleatoria(4, false);
-        imprimirSubcabecalho("Matriz de Adjacência (Grafo Aleatório 4x4)");
+        imprimirSubcabecalho("Lista de Adjacência (Grafo Aleatório 4x4)");
         System.out.println("Lista de Adjacência gerada:");
         System.out.println(formatarRepresentacaoGrafo(listaAdjacenciaConverter.toString()));
         System.out.println("\nMatriz de Adjacência resultante:");
@@ -52,10 +52,18 @@ public class Main {
         System.out
                 .println(formatarMatriz(grafoOriginal.getListaAdjacencia().converterParaMatrizIncidencia().toString()));
 
-        Grafo grafoPropriedade = new Grafo();
-        CarregadorGrafo.carregar(grafoPropriedade, "graphs/src/grafo2.txt");
+        imprimirSubcabecalho("Grafo Subjacente (Lista de Adjacência)");
+        ListaAdjacencia grafoSubjacenteLista = grafoOriginal.getListaAdjacencia().obterGrafoSubjacente();
+        System.out.println(formatarRepresentacaoGrafo(grafoSubjacenteLista.toString()));
+
+        imprimirSubcabecalho("Grafo Subjacente (Matriz de Adjacência)");
+        MatrizAdjacencia grafoSubjacenteMatriz = grafoOriginal.getMatrizAdjacencia().obterGrafoSubjacente();
+        System.out.println(formatarMatriz(grafoSubjacenteMatriz.toString()));
 
         imprimirSecao("Análise de Propriedades do Grafo");
+
+        Grafo grafoPropriedade = new Grafo();
+        CarregadorGrafo.carregar(grafoPropriedade, "graphs/src/grafo2.txt");
 
         imprimirResultadoPropriedade("Conexidade", grafoPropriedade.getListaAdjacencia().ehConexo());
 

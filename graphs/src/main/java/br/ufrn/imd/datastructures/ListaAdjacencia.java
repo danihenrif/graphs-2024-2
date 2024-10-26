@@ -361,4 +361,35 @@ public class ListaAdjacencia {
             }
         }
     }
+
+    public ListaAdjacencia obterGrafoSubjacente() {
+        if (!this.direcionado) {
+            Map<Integer, Set<Integer>> copiaLista = new HashMap<>();
+
+            for (Map.Entry<Integer, Set<Integer>> entrada : this.lista.entrySet()) {
+                copiaLista.put(entrada.getKey(), new HashSet<>(entrada.getValue()));
+            }
+
+            ListaAdjacencia copia = new ListaAdjacencia(copiaLista);
+            copia.setDirecionado(this.direcionado);
+            return copia;
+        }
+
+        ListaAdjacencia subjacente = new ListaAdjacencia();
+        subjacente.setDirecionado(false);
+
+        for (Integer vertice : this.lista.keySet()) {
+            subjacente.adicionarVertice(vertice);
+        }
+
+        for (Map.Entry<Integer, Set<Integer>> entrada : this.lista.entrySet()) {
+            Integer v = entrada.getKey();
+            for (Integer w : entrada.getValue()) {
+                subjacente.getLista().get(v).add(w);
+                subjacente.getLista().get(w).add(v);
+            }
+        }
+
+        return subjacente;
+    }
 }

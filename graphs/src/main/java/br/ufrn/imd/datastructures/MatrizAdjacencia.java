@@ -282,4 +282,38 @@ public class MatrizAdjacencia {
             System.out.println("Vértice " + i + " predecessor: " + predecessor[i]);
         }
     }
+
+    public MatrizAdjacencia obterGrafoSubjacente() {
+        if (!this.direcionado) {
+            List<List<Integer>> copiaMatriz = new ArrayList<>();
+
+            for (List<Integer> linha : this.matriz) {
+                copiaMatriz.add(new ArrayList<>(linha));
+            }
+
+            MatrizAdjacencia copia = new MatrizAdjacencia(copiaMatriz);
+            copia.setDirecionado(this.direcionado);
+            return copia;
+        }
+
+        int tamanho = this.matriz.size();
+        MatrizAdjacencia subjacente = new MatrizAdjacencia();
+        subjacente.setDirecionado(false);
+
+        for (int i = 0; i < tamanho; i++) {
+            List<Integer> linha = new ArrayList<>(Collections.nCopies(tamanho, 0));
+            subjacente.getMatriz().add(linha);
+        }
+
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (this.matriz.get(i).get(j) == 1 || this.matriz.get(j).get(i) == 1) {
+                    subjacente.getMatriz().get(i).set(j, 1);
+                    subjacente.getMatriz().get(j).set(i, 1);
+                }
+            }
+        }
+
+        return subjacente;
+    }
 }
