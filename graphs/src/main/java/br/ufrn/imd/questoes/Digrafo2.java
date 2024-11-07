@@ -1,10 +1,8 @@
 package br.ufrn.imd.questoes;
 
 import br.ufrn.imd.Grafo;
-import br.ufrn.imd.estruturasdedados.CicloDetector;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
-import br.ufrn.imd.util.GrafoUtils;
-import br.ufrn.imd.util.GrafoUtils.*;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
 
 public class Digrafo2 {
@@ -23,5 +21,8 @@ public class Digrafo2 {
 
         GrafoUtils.imprimirSubcabecalho("Matriz de Incidência - digrafo 2");
         System.out.println(digrafo2.getListaAdjacencia().converterParaMatrizIncidencia());
+
+        GrafoUtils.imprimirSubcabecalho("Busca em profundidade com determinação de profundidade do digrafo 2: ");
+        digrafo2.getListaAdjacencia().buscaEmProfundidadeComDeterminação(0);
     }
 }
