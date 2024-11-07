@@ -1,4 +1,4 @@
-package br.ufrn.imd.datastructures;
+package br.ufrn.imd.estruturasdedados;
 
 import br.ufrn.imd.util.GrafoUtils;
 

@@ -1,4 +1,4 @@
-package br.ufrn.imd.datastructures;
+package br.ufrn.imd.estruturasdedados;
 
 import java.util.*;
 
@@ -11,8 +11,13 @@ public class ListaAdjacencia {
         this.direcionado = false;
     }
 
-    public ListaAdjacencia(Map<Integer, Set<Integer>> listaAdjacencia) {
+    public ListaAdjacencia(Map<Integer, Set<Integer>> listaAdjacencia, Boolean direcionado) {
         this.lista = listaAdjacencia;
+        this.direcionado = direcionado;
+    }
+
+    public ListaAdjacencia(Map<Integer, Set<Integer>> copiaLista) {
+        this.lista = copiaLista;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class ListaAdjacencia {
 
     public String adicionarVertice(Integer vertice) {
         if (lista.containsKey(vertice)) {
-            return "Vértice já existe!";
+            return "Vértice " + vertice + " já existe!";
         }
         lista.put(vertice, new HashSet<>());
         return "Vértice " + vertice + " adicionado com sucesso!";
@@ -195,9 +200,9 @@ public class ListaAdjacencia {
 
     public MatrizIncidencia converterParaMatrizIncidencia() {
         Integer vertices = numeroDeVertices();
-        Integer arcos = numeroDeArcos();
+        Integer arcos = numeroDeArestasOuArcos();
 
-        MatrizIncidencia matrizIncidencia = new MatrizIncidencia(vertices, arcos);
+        MatrizIncidencia matrizIncidencia = new MatrizIncidencia(arcos, vertices);
         int indiceArco = 0;
 
         for (int i = 0; i < numeroDeVertices(); i++) {
@@ -214,15 +219,14 @@ public class ListaAdjacencia {
         return lista.size();
     }
 
-    public Integer numeroDeArcos() {
-        int contador = 0;
-        for (int i = 0; i < numeroDeVertices(); i++) {
-            Set<Integer> adjacentes = lista.get(i);
-            if (adjacentes != null) {
-                contador += adjacentes.size();
-            }
+    public Integer numeroDeArestasOuArcos() {
+        int totalArestas = 0;
+
+        for (Set<Integer> adjacentes : lista.values()) {
+            totalArestas += adjacentes.size();
         }
-        return direcionado ? contador : contador / 2;
+
+        return direcionado ? totalArestas : totalArestas / 2;
     }
 
     public void calcularGrauVertices() {
@@ -258,9 +262,9 @@ public class ListaAdjacencia {
 
     public void verificarAdjacencia(int vertice1, int vertice2) {
         if (lista.get(vertice1).contains(vertice2) || lista.get(vertice2).contains(vertice1)) {
-            System.out.println("Os vértices são adjacentes.");
+            System.out.println("Os vértices " + vertice1 + " e " + vertice2 + " são adjacentes.");
         } else {
-            System.out.println("Os vértices não são adjacentes.");
+            System.out.println("Os vértices " + vertice1 + " e " + vertice2 + " não adjacentes.");
         }
     }
 

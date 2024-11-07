@@ -1,4 +1,4 @@
-package br.ufrn.imd.datastructures;
+package br.ufrn.imd.estruturasdedados;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class MatrizIncidencia {
         this.matriz = new ArrayList<>();
     }
 
-    public MatrizIncidencia(Integer numeroDeVertices, Integer numeroDeArestas) {
+    public MatrizIncidencia(Integer numeroDeArestas, Integer numeroDeVertices) {
         this();
         for (int i = 0; i < numeroDeArestas; i++) {
             matriz.add(new ArrayList<>());

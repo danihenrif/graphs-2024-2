@@ -1,15 +1,24 @@
 package br.ufrn.imd;
 
-import br.ufrn.imd.datastructures.ListaAdjacencia;
-import br.ufrn.imd.datastructures.MatrizAdjacencia;
+import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
+import br.ufrn.imd.estruturasdedados.MatrizAdjacencia;
 
 public class Grafo {
-    private final ListaAdjacencia listaAdjacencia;
-    private final MatrizAdjacencia matrizAdjacencia;
+    private ListaAdjacencia listaAdjacencia;
+    private MatrizAdjacencia matrizAdjacencia;
 
     public Grafo() {
         this.listaAdjacencia = new ListaAdjacencia();
         this.matrizAdjacencia = new MatrizAdjacencia();
+    }
+
+    public Grafo(ListaAdjacencia listaAdjacencia) {
+        this.listaAdjacencia = listaAdjacencia;
+        this.matrizAdjacencia = new MatrizAdjacencia();
+    }
+
+    public void setMatrizAdjacencia(MatrizAdjacencia matrizAdjacencia) {
+        this.matrizAdjacencia = matrizAdjacencia;
     }
 
     public ListaAdjacencia getListaAdjacencia() {
@@ -31,5 +40,9 @@ public class Grafo {
 
     public String removerVertice(Integer vertice) {
         return listaAdjacencia.removerVertice(vertice);
+    }
+
+    public ListaAdjacencia converterParaListaAdjacencia() {
+        return matrizAdjacencia.converterParaListaAdjacencia();
     }
 }
