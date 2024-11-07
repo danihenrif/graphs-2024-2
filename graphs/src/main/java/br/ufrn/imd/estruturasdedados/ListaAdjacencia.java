@@ -1,6 +1,7 @@
 package br.ufrn.imd.estruturasdedados;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ListaAdjacencia {
     private final Map<Integer, Set<Integer>> lista;
@@ -396,4 +397,31 @@ public class ListaAdjacencia {
 
         return subjacente;
     }
+
+    public void buscaEmProfundidadeComDeterminação(int vertice) {
+        Set<Integer> visitados = new HashSet<>();
+        int[] tempoEntrada = new int[lista.size()];
+        int[] tempoSaida = new int[lista.size()];
+        AtomicInteger tempo = new AtomicInteger(0);
+
+        dfsComDeterminacaoDeProfundidade(vertice, visitados, tempoEntrada, tempoSaida, tempo);
+
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println("Vértice " + i + ": Entrada = " + tempoEntrada[i] + ", Saída = " + tempoSaida[i]);
+        }
+    }
+
+    private void dfsComDeterminacaoDeProfundidade(int vertice, Set<Integer> visitados, int[] tempoEntrada, int[] tempoSaida, AtomicInteger tempo) {
+        visitados.add(vertice);
+        tempoEntrada[vertice] = tempo.incrementAndGet();
+
+        for (int w : lista.get(vertice)) {
+            if (!visitados.contains(w)) {
+                dfsComDeterminacaoDeProfundidade(w, visitados, tempoEntrada, tempoSaida, tempo);
+            }
+        }
+
+        tempoSaida[vertice] = tempo.incrementAndGet();
+    }
+
 }
