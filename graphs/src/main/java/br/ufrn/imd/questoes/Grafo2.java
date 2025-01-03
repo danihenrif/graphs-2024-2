@@ -3,10 +3,10 @@ package br.ufrn.imd.questoes;
 import br.ufrn.imd.Grafo;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
 import br.ufrn.imd.estruturasdedados.MatrizAdjacencia;
-import br.ufrn.imd.util.GrafoUtils;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
-import static br.ufrn.imd.util.GrafoUtils.*;
-import static br.ufrn.imd.util.GrafoUtils.imprimirMetrica;
+import static br.ufrn.imd.questoes.util.GrafoUtils.*;
+import static br.ufrn.imd.questoes.util.GrafoUtils.imprimirMetrica;
 
 public class Grafo2 {
     public static void main(String[] args) {

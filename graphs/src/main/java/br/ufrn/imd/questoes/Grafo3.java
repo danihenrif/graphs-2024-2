@@ -1,10 +1,9 @@
 package br.ufrn.imd.questoes;
 
 import br.ufrn.imd.Grafo;
-import br.ufrn.imd.estruturasdedados.CicloDetector;
-import br.ufrn.imd.util.GrafoUtils;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
-import static br.ufrn.imd.util.GrafoUtils.*;
+import static br.ufrn.imd.questoes.util.GrafoUtils.*;
 
 public class Grafo3 {
     public static void main(String[] args) {

@@ -3,8 +3,7 @@ package br.ufrn.imd.questoes;
 import br.ufrn.imd.Grafo;
 import br.ufrn.imd.estruturasdedados.CicloDetector;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
-import br.ufrn.imd.util.GrafoUtils;
-import br.ufrn.imd.util.GrafoUtils.*;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
 
 public class Digrafo1 {
