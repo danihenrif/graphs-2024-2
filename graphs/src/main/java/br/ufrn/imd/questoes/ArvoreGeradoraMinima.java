@@ -1,9 +1,9 @@
 package br.ufrn.imd.questoes;
 
+import br.ufrn.imd.algoritmos.Kruskal;
+import br.ufrn.imd.algoritmos.Kruskal.Aresta;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
 import br.ufrn.imd.util.GrafoUtils;
-import br.ufrn.imd.algoritmos.Kruskal;
-
 import java.util.List;
 
 public class ArvoreGeradoraMinima {
@@ -18,10 +18,11 @@ public class ArvoreGeradoraMinima {
 
         // Imprimir o resultado
         GrafoUtils.imprimirSubcabecalho("Árvore Geradora Mínima (Arestas):");
-        mst.forEach(System.out::println);
+        mst.forEach(aresta -> System.out.println(aresta.toString()));
 
         // Calcular e imprimir o peso total da árvore
-        int pesoTotal = mst.stream().mapToInt(aresta -> aresta.peso).sum();
+        int pesoTotal = mst.stream().mapToInt(Aresta::getPeso).sum();
+
         GrafoUtils.imprimirMetrica("Peso total da árvore", pesoTotal);
     }
 }

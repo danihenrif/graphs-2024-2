@@ -1,5 +1,6 @@
 package br.ufrn.imd.algoritmos;
 
+import br.ufrn.imd.algoritmos.Kruskal.Aresta;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
 import java.util.*;
 
@@ -14,6 +15,14 @@ public class Kruskal {
             this.peso = peso;
         }
 
+        public int getDestino() {
+            return destino;
+        }
+
+        public int getPeso() {
+            return peso;
+        }
+        
         @Override
         public int compareTo(Aresta outra) {
             return Integer.compare(this.peso, outra.peso);
