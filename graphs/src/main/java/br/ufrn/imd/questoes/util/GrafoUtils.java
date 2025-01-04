@@ -19,7 +19,8 @@ public class GrafoUtils {
     public static Map<Integer, Set<Integer>>  listaDigrafo3 = new HashMap<>();
     public static List<List<Integer>> arvoreExemploSala = new ArrayList<>();
     public static Map<Integer, List<Map<Integer, Integer>>> listaDigrafoComPesos = new HashMap<>();
-
+    public static Map<Integer, Set<Integer>> listaEuler = new HashMap<>();
+    public static Map<Integer, Set<Integer>> listaEuler2 = new HashMap<>();
 
 
     static {
@@ -138,6 +139,49 @@ public class GrafoUtils {
         listaDigrafoComPesos.put(16, Arrays.asList(new HashMap<>(Map.of(11, 1)), new HashMap<>(Map.of(18, 5))));
         listaDigrafoComPesos.put(17, Arrays.asList(new HashMap<>(Map.of(8, 2)), new HashMap<>(Map.of(16, 20))));
         listaDigrafoComPesos.put(18, Arrays.asList());
+
+        listaEuler.put(0, new HashSet<>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11)));
+        listaEuler.put(1, new HashSet<>(Arrays.asList(0,2,3,4,5,6,7,8,9,10,11)));
+        listaEuler.put(2, new HashSet<>(Arrays.asList(0,1,3,4,5,6,7,8,9,10,11)));
+        listaEuler.put(3, new HashSet<>(Arrays.asList(0,1,2,4,5,6,7,8,9,10,11)));
+        listaEuler.put(4, new HashSet<>(Arrays.asList(0,1,2,3,5,6,7,8,9,10,11)));
+        listaEuler.put(5, new HashSet<>(Arrays.asList(0,1,2,3,4,6,7,8,9,10,11)));
+        listaEuler.put(6, new HashSet<>(Arrays.asList(0,1,2,3,4,5,7,8,9,10,11)));
+        listaEuler.put(7, new HashSet<>(Arrays.asList(0,1,2,3,4,5,6,8,9,10,11)));
+        listaEuler.put(8, new HashSet<>(Arrays.asList(0,1,2,3,4,5,6,7,9,10,11)));
+        listaEuler.put(9, new HashSet<>(Arrays.asList(0,1,2,3,4,5,6,7,8,10,11)));
+        listaEuler.put(10, new HashSet<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,11)));
+        listaEuler.put(11, new HashSet<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10)));
+
+        Map<Integer, Set<Integer>> listaEuler2 = new HashMap<>();
+
+// Adicionando as arestas de forma que todos os vértices tenham grau par e o grafo seja conexo
+        listaEuler2.put(0, new HashSet<>(Arrays.asList(1, 2, 3, 4)));
+        listaEuler2.put(1, new HashSet<>(Arrays.asList(0, 2, 5)));
+        listaEuler2.put(2, new HashSet<>(Arrays.asList(0, 1, 3, 5)));
+        listaEuler2.put(3, new HashSet<>(Arrays.asList(0, 2, 4, 6)));
+        listaEuler2.put(4, new HashSet<>(Arrays.asList(0, 3, 5, 6)));
+        listaEuler2.put(5, new HashSet<>(Arrays.asList(1, 2, 4, 6)));
+        listaEuler2.put(6, new HashSet<>(Arrays.asList(3, 4, 5)));
+
+// Adicionando arestas para garantir a conexão do grafo
+        listaEuler2.put(7, new HashSet<>(Arrays.asList(8, 9)));
+        listaEuler2.put(8, new HashSet<>(Arrays.asList(7, 9, 10)));
+        listaEuler2.put(9, new HashSet<>(Arrays.asList(7, 8, 11)));
+        listaEuler2.put(10, new HashSet<>(Arrays.asList(8, 11)));
+        listaEuler2.put(11, new HashSet<>(Arrays.asList(9, 10)));
+
+// Vértices 12 a 15, interconectados com as arestas
+        listaEuler2.put(12, new HashSet<>(Arrays.asList(13, 14, 15)));
+        listaEuler2.put(13, new HashSet<>(Arrays.asList(12, 14)));
+        listaEuler2.put(14, new HashSet<>(Arrays.asList(12, 13, 15)));
+        listaEuler2.put(15, new HashSet<>(Arrays.asList(12, 14)));
+
+// Adicionando arestas entre componentes para garantir que o grafo tenha ciclo
+        listaEuler2.put(0, new HashSet<>(Arrays.asList(12)));
+        listaEuler2.put(12, new HashSet<>(Arrays.asList(0)));
+
+
     }
 
 
