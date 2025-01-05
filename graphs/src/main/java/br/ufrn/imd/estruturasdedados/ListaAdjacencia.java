@@ -5,22 +5,51 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ListaAdjacencia {
     private final Map<Integer, Set<Integer>> lista;
+    private final Map<String, Integer> pesos;
     private boolean direcionado;
 
     public ListaAdjacencia() {
         this.lista = new HashMap<>();
+        this.pesos = new HashMap<>();
         this.direcionado = false;
     }
 
+    public ListaAdjacencia(boolean direcionado) {
+        this.lista = new HashMap<>();
+        this.pesos = new HashMap<>();
+        this.direcionado = direcionado;
+    }    
+
     public ListaAdjacencia(Map<Integer, Set<Integer>> listaAdjacencia, Boolean direcionado) {
         this.lista = listaAdjacencia;
+        this.pesos = new HashMap<>();
         this.direcionado = direcionado;
     }
 
     public ListaAdjacencia(Map<Integer, Set<Integer>> copiaLista) {
         this.lista = copiaLista;
+        this.pesos = new HashMap<>();
     }
 
+    public void adicionarArestaComPeso(int u, int v, int peso) {
+        lista.putIfAbsent(u, new HashSet<>());
+        lista.putIfAbsent(v, new HashSet<>());
+
+        lista.get(u).add(v);
+        if (!direcionado) {
+            lista.get(v).add(u);
+        }
+
+        // Armazena o peso da aresta
+        pesos.put(u + "-" + v, peso);
+        if (!direcionado) {
+            pesos.put(v + "-" + u, peso);
+        }
+    }
+
+    public int obterPeso(int u, int v) {
+        return pesos.getOrDefault(u + "-" + v, 0); // Retorna 0 se a aresta não existir
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,6 +122,8 @@ public class ListaAdjacencia {
         if (lista.containsKey(v)) {
             lista.get(v).remove(u);
         }
+        pesos.remove(u + "-" + v);
+        pesos.remove(v + "-" + u);
     }
 
     // Obtém todos os vértices do grafo
