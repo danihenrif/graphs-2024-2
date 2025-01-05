@@ -9,54 +9,54 @@ import java.util.Stack;
 public class Hierholzer {
 
     // Representação do grafo como uma lista de adjacência
-    static ListaAdjacencia graph = new ListaAdjacencia(GrafoUtils.listaEuler2);
+    static ListaAdjacencia graph = new ListaAdjacencia(GrafoUtils.listaEuler);
 
     // Remove uma aresta do grafo
-    public static void removeEdge(int u, int v) {
+    public static void removeAresta(int u, int v) {
         graph.removerAresta(u, v);
         graph.removerAresta(v, u);
     }
 
     // Encontra um ciclo euleriano usando o algoritmo de Hierholzer
-    public static List<Integer> hierholzer(int start) {
+    public static List<Integer> hierholzer(int inicio) {
         Stack<Integer> stack = new Stack<>();
-        List<Integer> eulerCycle = new ArrayList<>();
+        List<Integer> ciclo = new ArrayList<>();
 
-        stack.push(start);
+        stack.push(inicio);
 
         while (!stack.isEmpty()) {
             int current = stack.peek();
 
             // Se o vértice atual ainda tiver arestas
             if (!graph.obterAdjacentes(current).isEmpty()) {
-                int neighbor = graph.obterPrimeiroVizinho(current); // Pega o primeiro vizinho
-                stack.push(neighbor);
-                removeEdge(current, neighbor); // Remove a aresta
+                int vizinho = graph.obterPrimeiroVizinho(current); // Pega o primeiro vizinho
+                stack.push(vizinho);
+                removeAresta(current, vizinho); // Remove a aresta
             } else {
                 // Adiciona o vértice ao ciclo euleriano e volta para o anterior
-                eulerCycle.add(stack.pop());
+                ciclo.add(stack.pop());
             }
         }
 
-        return eulerCycle;
+        return ciclo;
     }
 
     public static void main(String[] args) {
         // Verificar se o grafo tem um ciclo euleriano
-        int start = 0; // Começa com um vértice arbitrário
-        boolean hasEulerianCycle = true;
+        int inicio = 0; // Começa com um vértice arbitrário
+        boolean temCicloEuler = true;
 
         // Checar graus pares para todos os vértices
         for (int vertex : graph.obterVertices()) {
             if (graph.obterAdjacentes(vertex).size() % 2 != 0) {
-                hasEulerianCycle = false;
+                temCicloEuler = false;
                 break;
             }
         }
 
-        if (hasEulerianCycle) {
-            List<Integer> eulerCycle = hierholzer(start);
-            System.out.println("Ciclo Euleriano: " + eulerCycle);
+        if (temCicloEuler) {
+            List<Integer> ciclo = hierholzer(inicio);
+            System.out.println("Ciclo Euleriano: " + ciclo);
         } else {
             System.out.println("O grafo não possui um ciclo euleriano.");
         }
