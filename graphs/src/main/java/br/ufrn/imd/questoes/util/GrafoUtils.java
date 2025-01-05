@@ -1,7 +1,6 @@
 package br.ufrn.imd.questoes.util;
 
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
-
 import java.util.*;
 
 public class GrafoUtils {
@@ -291,6 +290,54 @@ public class GrafoUtils {
 
     public static String formatarMatriz(String matriz) {
         return "  " + matriz.replace("\n", "\n  ");
+    }
+
+    public static ListaAdjacencia converterMatrizParaListaEuler1() {
+        int[][] matrizPesos = {
+            {0, 33, 27, 34, 65, 93, 145, 23, 37, 23, 38, 38},
+            {33, 0, 28, 35, 42, 94, 172, 50, 64, 51, 47, 65},
+            {27, 28, 0, 11, 69, 71, 166, 44, 57, 44, 72, 59},
+            {34, 35, 11, 0, 71, 66, 174, 52, 66, 53, 73, 67},
+            {65, 42, 69, 71, 0, 192, 114, 83, 97, 70, 43, 94},
+            {93, 94, 71, 66, 192, 0, 235, 112, 126, 113, 133, 127},
+            {145, 172, 166, 174, 114, 235, 0, 137, 124, 133, 151, 109},
+            {23, 50, 44, 52, 83, 112, 137, 0, 14, 38, 61, 38},
+            {37, 64, 57, 66, 97, 126, 124, 14, 0, 36, 67, 24},
+            {23, 51, 44, 53, 70, 113, 133, 38, 36, 0, 31, 25},
+            {38, 47, 72, 73, 43, 133, 151, 61, 67, 31, 0, 56},
+            {38, 65, 59, 67, 94, 127, 109, 38, 24, 25, 56, 0}
+        };
+    
+        ListaAdjacencia listaAdjacencia = new ListaAdjacencia(false); // Grafo não direcionado
+        int numVertices = matrizPesos.length;
+    
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = i + 1; j < numVertices; j++) {
+                if (matrizPesos[i][j] != 0) {
+                    listaAdjacencia.adicionarArestaComPeso(i, j, matrizPesos[i][j]);
+                }
+            }
+        }
+    
+        return listaAdjacencia;
+    }
+    public static int[][] converterListaParaMatrizPesos(ListaAdjacencia listaAdjacencia) {
+        int numVertices = listaAdjacencia.numeroDeVertices();
+        int[][] matrizPesos = new int[numVertices][numVertices];
+    
+        // Inicializar a matriz com um valor alto (infinito) para representar ausência de aresta
+        for (int i = 0; i < numVertices; i++) {
+            Arrays.fill(matrizPesos[i], Integer.MAX_VALUE);
+        }
+    
+        // Preencher a matriz com os pesos das arestas
+        for (int u : listaAdjacencia.obterVertices()) {
+            for (int v : listaAdjacencia.obterAdjacentes(u)) {
+                matrizPesos[u][v] = 1; // Substituir pelo peso real, se houver
+            }
+        }
+    
+        return matrizPesos;
     }
 
     public static Map<Integer, List<Map<Integer, Integer>>> getListaDigrafoComPesos() {return listaDigrafoComPesos;}

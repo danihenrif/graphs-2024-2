@@ -1,7 +1,6 @@
 package br.ufrn.imd.algoritmos;
 
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
-
 import java.util.*;
 
 public class Boruvka {
@@ -36,54 +35,38 @@ public class Boruvka {
     }
 
     public static List<Aresta> executarBoruvka(ListaAdjacencia grafo) {
-        int numVertices = grafo.numeroDeVertices();
+        int n = grafo.numeroDeVertices();
         List<Aresta> mst = new ArrayList<>();
-        int[] componente = new int[numVertices];
-
-        // Inicializa cada vértice como uma componente separada
-        for (int i = 0; i < numVertices; i++) {
-            componente[i] = i;
-        }
-
-        int componentesRestantes = numVertices;
-
-        while (componentesRestantes > 1) {
-            Aresta[] menorAresta = new Aresta[numVertices];
-
-            // Para cada aresta, encontra a menor que conecta componentes diferentes
-            for (int origem = 0; origem < numVertices; origem++) {
-                for (int destino : grafo.getLista().get(origem)) {
-                    int peso = 1; // Ajuste se houver pesos reais
-                    if (componente[origem] != componente[destino]) {
-                        if (menorAresta[componente[origem]] == null || peso < menorAresta[componente[origem]].getPeso()) {
-                            menorAresta[componente[origem]] = new Aresta(origem, destino, peso);
+        int[] comp = new int[n];
+        for (int i = 0; i < n; i++) comp[i] = i;
+        int restantes = n;
+        while (restantes > 1) {
+            Aresta[] menor = new Aresta[n];
+            for (int u = 0; u < n; u++) {
+                for (int v : grafo.obterAdjacentes(u)) {
+                    int p = grafo.obterPeso(u, v);
+                    if (comp[u] != comp[v]) {
+                        if (menor[comp[u]] == null || p < menor[comp[u]].getPeso()) {
+                            menor[comp[u]] = new Aresta(u, v, p);
                         }
                     }
                 }
             }
-
-            // Adiciona as menores arestas encontradas à MST
-            for (Aresta aresta : menorAresta) {
-                if (aresta != null) {
-                    int compOrigem = componente[aresta.getOrigem()];
-                    int compDestino = componente[aresta.getDestino()];
-
-                    if (compOrigem != compDestino) {
-                        mst.add(aresta);
-
-                        // Une as componentes
-                        for (int i = 0; i < numVertices; i++) {
-                            if (componente[i] == compDestino) {
-                                componente[i] = compOrigem;
-                            }
+            for (Aresta a : menor) {
+                if (a != null) {
+                    int cU = comp[a.getOrigem()];
+                    int cV = comp[a.getDestino()];
+                    if (cU != cV) {
+                        mst.add(a);
+                        for (int i = 0; i < n; i++) {
+                            if (comp[i] == cV) comp[i] = cU;
                         }
-
-                        componentesRestantes--;
+                        restantes--;
                     }
                 }
             }
         }
-
         return mst;
     }
+    
 }

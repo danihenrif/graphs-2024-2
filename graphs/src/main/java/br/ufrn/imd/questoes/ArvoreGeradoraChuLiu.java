@@ -2,32 +2,31 @@ package br.ufrn.imd.questoes;
 
 import br.ufrn.imd.algoritmos.ChuLiuEdmonds;
 import br.ufrn.imd.algoritmos.ChuLiuEdmonds.Aresta;
-import br.ufrn.imd.util.GrafoUtils;
-
-import java.util.*;
+import br.ufrn.imd.questoes.util.GrafoUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArvoreGeradoraChuLiu {
     public static void main(String[] args) {
-        GrafoUtils.imprimirCabecalho("ÁRVORE GERADORA MÍNIMA - CHU-LIU/EDMONDS");
+        GrafoUtils.imprimirCabecalho("ÁRVORE GERADORA MÍNIMA - CHU-LIU/EDMONDS (Matriz)");
 
-        int numVertices = 6;
+        int[][] matriz = {
+            {0, 1, 10, 0,  0,  5},
+            {0, 0,  8, 0,  0,  2},
+            {0, 0,  0, 0,  6,  0},
+            {0, 7,  4, 0,  0,  0},
+            {0, 0,  0, 3,  0,  0},
+            {0, 0,  0, 9, 11,  0}
+        };
+
+        int numVertices = matriz.length;
         int raiz = 0;
 
-        GrafoUtils.imprimirSubcabecalho("Lista de Arestas do Grafo:");
-        List<Aresta> arestas = Arrays.asList(
-            new Aresta(0, 1, 1),  // 1 -> 2
-            new Aresta(0, 2, 10), // 1 -> 3
-            new Aresta(0, 5, 5),  // 1 -> 6
-            new Aresta(1, 2, 8),  // 2 -> 3
-            new Aresta(1, 5, 2),  // 2 -> 6
-            new Aresta(2, 4, 6),  // 3 -> 5
-            new Aresta(3, 1, 7),  // 4 -> 2
-            new Aresta(3, 2, 4),  // 4 -> 3
-            new Aresta(4, 3, 3),  // 5 -> 4
-            new Aresta(5, 3, 9),  // 6 -> 4
-            new Aresta(5, 4, 11)  // 6 -> 5
-        );
+        GrafoUtils.imprimirSubcabecalho("Matriz de Custos:");
+        imprimirMatriz(matriz);
 
+        List<Aresta> arestas = converterMatrizParaArestas(matriz);
+        GrafoUtils.imprimirSubcabecalho("Lista de Arestas Derivadas:");
         arestas.forEach(System.out::println);
 
         List<Aresta> mst = ChuLiuEdmonds.executarChuLiuEdmonds(numVertices, raiz, arestas);
@@ -37,5 +36,28 @@ public class ArvoreGeradoraChuLiu {
 
         int pesoTotal = mst.stream().mapToInt(Aresta::getPeso).sum();
         GrafoUtils.imprimirMetrica("Peso Total da Arborescência Geradora Mínima", pesoTotal);
+    }
+
+    private static List<Aresta> converterMatrizParaArestas(int[][] matriz) {
+        List<Aresta> lista = new ArrayList<>();
+        int n = matriz.length;
+        for (int u = 0; u < n; u++) {
+            for (int v = 0; v < n; v++) {
+                int w = matriz[u][v];
+                if (w > 0 && u != v) {
+                    lista.add(new Aresta(u, v, w));
+                }
+            }
+        }
+        return lista;
+    }
+
+    private static void imprimirMatriz(int[][] matriz) {
+        for (int[] linha : matriz) {
+            for (int valor : linha) {
+                System.out.printf("%4d", valor);
+            }
+            System.out.println();
+        }
     }
 }

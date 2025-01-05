@@ -1,7 +1,6 @@
 package br.ufrn.imd.algoritmos;
 
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
-
 import java.util.*;
 
 public class Prim {
@@ -36,33 +35,36 @@ public class Prim {
     }
 
     public static List<Aresta> executarPrim(ListaAdjacencia grafo, int inicio) {
-        int numVertices = grafo.numeroDeVertices();
-        boolean[] visitados = new boolean[numVertices];
-        List<Aresta> mst = new ArrayList<>();
-        PriorityQueue<Aresta> minHeap = new PriorityQueue<>(Comparator.comparingInt(Aresta::getPeso));
+    int numVertices = grafo.numeroDeVertices();
+    boolean[] visitados = new boolean[numVertices];
+    List<Aresta> mst = new ArrayList<>();
+    PriorityQueue<Aresta> minHeap = new PriorityQueue<>(Comparator.comparingInt(Aresta::getPeso));
 
-        // Adiciona as arestas do vértice inicial à fila de prioridade
-        visitados[inicio] = true;
-        for (int adj : grafo.getLista().get(inicio)) {
-            minHeap.add(new Aresta(inicio, adj, 1)); // Peso 1 por padrão (ajuste se necessário)
-        }
+    // Adiciona todas as arestas do vértice inicial à fila de prioridade
+    visitados[inicio] = true;
+    for (int adj : grafo.obterAdjacentes(inicio)) {
+        int peso = grafo.obterPeso(inicio, adj);
+        minHeap.add(new Aresta(inicio, adj, peso));
+    }
 
-        while (!minHeap.isEmpty() && mst.size() < numVertices - 1) {
-            Aresta aresta = minHeap.poll();
+    while (!minHeap.isEmpty() && mst.size() < numVertices - 1) {
+        Aresta aresta = minHeap.poll();
 
-            if (!visitados[aresta.getDestino()]) {
-                visitados[aresta.getDestino()] = true;
-                mst.add(aresta);
+        if (!visitados[aresta.getDestino()]) {
+            visitados[aresta.getDestino()] = true;
+            mst.add(aresta);
 
-                // Adiciona as novas arestas do vértice recém-adicionado
-                for (int adj : grafo.getLista().get(aresta.getDestino())) {
-                    if (!visitados[adj]) {
-                        minHeap.add(new Aresta(aresta.getDestino(), adj, 1)); // Peso 1 por padrão
-                    }
+            // Adiciona as arestas do destino recém-incluído na MST
+            for (int adj : grafo.obterAdjacentes(aresta.getDestino())) {
+                if (!visitados[adj]) {
+                    int peso = grafo.obterPeso(aresta.getDestino(), adj);
+                    minHeap.add(new Aresta(aresta.getDestino(), adj, peso));
                 }
             }
         }
-
-        return mst;
     }
+
+    return mst;
+}
+
 }

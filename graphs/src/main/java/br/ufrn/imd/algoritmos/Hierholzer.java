@@ -1,4 +1,4 @@
-package br.ufrn.imd.questoes;
+package br.ufrn.imd.algoritmos;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
 import br.ufrn.imd.questoes.util.GrafoUtils;
 

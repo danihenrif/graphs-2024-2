@@ -1,8 +1,7 @@
 package br.ufrn.imd.questoes;
 
-import br.ufrn.imd.estruturasdedados.CaminhoMaisCurto;
+import br.ufrn.imd.algoritmos.CaminhoMaisCurto;
 import br.ufrn.imd.questoes.util.GrafoUtils;
-
 import java.util.List;
 import java.util.Map;
 

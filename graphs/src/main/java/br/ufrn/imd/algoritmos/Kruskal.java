@@ -1,18 +1,23 @@
 package br.ufrn.imd.algoritmos;
 
-import br.ufrn.imd.algoritmos.Kruskal.Aresta;
 import br.ufrn.imd.estruturasdedados.ListaAdjacencia;
 import java.util.*;
 
 public class Kruskal {
 
     public static class Aresta implements Comparable<Aresta> {
-        int origem, destino, peso;
+        private final int origem;
+        private final int destino;
+        private final int peso;
 
         public Aresta(int origem, int destino, int peso) {
             this.origem = origem;
             this.destino = destino;
             this.peso = peso;
+        }
+
+        public int getOrigem() {
+            return origem;
         }
 
         public int getDestino() {
@@ -22,7 +27,7 @@ public class Kruskal {
         public int getPeso() {
             return peso;
         }
-        
+
         @Override
         public int compareTo(Aresta outra) {
             return Integer.compare(this.peso, outra.peso);
@@ -30,69 +35,57 @@ public class Kruskal {
 
         @Override
         public String toString() {
-            return "Aresta{" + "origem=" + origem + ", destino=" + destino + ", peso=" + peso + '}';
+            return "Aresta{" + 
+                   "origem=" + origem + 
+                   ", destino=" + destino + 
+                   ", peso=" + peso + '}';
         }
     }
 
-    private static int encontrarPai(int[] pais, int vertice) {
-        if (pais[vertice] == vertice) {
-            return vertice;
+    private static int find(int[] pai, int x) {
+        if (pai[x] != x) {
+            pai[x] = find(pai, pai[x]);
         }
-        return pais[vertice] = encontrarPai(pais, pais[vertice]); // Compressão de caminho
+        return pai[x];
     }
 
-    private static void unir(int[] pais, int[] rank, int vertice1, int vertice2) {
-        int raiz1 = encontrarPai(pais, vertice1);
-        int raiz2 = encontrarPai(pais, vertice2);
-
-        if (raiz1 != raiz2) {
-            if (rank[raiz1] > rank[raiz2]) {
-                pais[raiz2] = raiz1;
-            } else if (rank[raiz1] < rank[raiz2]) {
-                pais[raiz1] = raiz2;
-            } else {
-                pais[raiz2] = raiz1;
-                rank[raiz1]++;
-            }
-        }
-    }
-
-    public static List<Aresta> executarKruskal(ListaAdjacencia grafo, int numVertices) {
+    public static List<Aresta> executarKruskal(ListaAdjacencia grafo) {
+        int n = grafo.numeroDeVertices();
         List<Aresta> arestas = new ArrayList<>();
 
-        // Constrói a lista de arestas
-        for (Map.Entry<Integer, Set<Integer>> entrada : grafo.getLista().entrySet()) {
-            int origem = entrada.getKey();
-            for (Integer destino : entrada.getValue()) {
-                int peso = 1; // Substitua por pesos reais se aplicável
-                arestas.add(new Aresta(origem, destino, peso));
+        // Monta a lista de todas as arestas (u < v, para não duplicar no caso de grafo não dirigido)
+        for (int u = 0; u < n; u++) {
+            for (int v : grafo.obterAdjacentes(u)) {
+                if (u < v) {
+                    int peso = grafo.obterPeso(u, v);
+                    arestas.add(new Aresta(u, v, peso));
+                }
             }
         }
 
-        // Ordena as arestas pelo peso
+        // Ordena as arestas pelo peso (crescente)
         Collections.sort(arestas);
 
-        // Inicializa a estrutura de union-find
-        int[] pais = new int[numVertices];
-        int[] rank = new int[numVertices];
-        for (int i = 0; i < numVertices; i++) {
-            pais[i] = i;
-            rank[i] = 0;
+        // Estrutura Union-Find: cada vértice começa como pai de si mesmo
+        int[] pai = new int[n];
+        for (int i = 0; i < n; i++) {
+            pai[i] = i;
         }
 
-        // Algoritmo de Kruskal
         List<Aresta> mst = new ArrayList<>();
-        for (Aresta aresta : arestas) {
-            int origemPai = encontrarPai(pais, aresta.origem);
-            int destinoPai = encontrarPai(pais, aresta.destino);
 
-            if (origemPai != destinoPai) { // Não forma ciclo
-                mst.add(aresta);
-                unir(pais, rank, origemPai, destinoPai);
-            }
+        // Percorre as arestas em ordem
+        for (Aresta a : arestas) {
+            int raizU = find(pai, a.getOrigem());
+            int raizV = find(pai, a.getDestino());
 
-            if (mst.size() == numVertices - 1) {
-                break; // Quando MST está completo
+            // Se forem componentes diferentes, une e adiciona a aresta na MST
+            if (raizU != raizV) {
+                mst.add(a);
+                pai[raizV] = raizU; // Poderia usar union-by-rank, mas aqui simplificamos
+                if (mst.size() == n - 1) {
+                    break;
+                }
             }
         }
 
