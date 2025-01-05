@@ -23,6 +23,7 @@ public class Digrafo2 {
         System.out.println(digrafo2.getListaAdjacencia().converterParaMatrizIncidencia());
 
         GrafoUtils.imprimirSubcabecalho("Busca em profundidade com determinação de profundidade do digrafo 2: ");
+        System.out.println("Iniciando do vértice 0:");
         digrafo2.getListaAdjacencia().buscaEmProfundidadeComDeterminação(0);
     }
 }

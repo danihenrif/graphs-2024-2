@@ -73,6 +73,48 @@ public class ListaAdjacencia {
         return "Vértice " + vertice + " removido com sucesso!";
     }
 
+    // Adiciona uma aresta entre os vértices u e v
+    public void adicionarAresta(int u, int v) {
+        lista.putIfAbsent(u, new HashSet<>());
+        lista.putIfAbsent(v, new HashSet<>());
+
+        lista.get(u).add(v);
+        lista.get(v).add(u); // Grafo não direcionado
+    }
+
+    // Remove a aresta entre os vértices u e v
+    public void removerAresta(int u, int v) {
+        // Verifica se o vértice u existe e se a aresta com v está presente
+        if (lista.containsKey(u)) {
+            lista.get(u).remove(v);
+        }
+
+        // Verifica se o vértice v existe e se a aresta com u está presente
+        if (lista.containsKey(v)) {
+            lista.get(v).remove(u);
+        }
+    }
+
+    // Obtém todos os vértices do grafo
+    public Set<Integer> obterVertices() {
+        return lista.keySet();  // Retorna o conjunto de chaves (vértices)
+    }
+
+    // Obtém a lista de adjacentes de um vértice
+    public Set<Integer> obterAdjacentes(int u) {
+        return lista.getOrDefault(u, new HashSet<>());
+    }
+
+    // Obtém o primeiro vizinho de um vértice
+    public int obterPrimeiroVizinho(int u) {
+        Set<Integer> vizinhos = lista.getOrDefault(u, new HashSet<>());
+        Iterator<Integer> iterator = vizinhos.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();  // Retorna o primeiro vizinho
+        }
+        return -1;  // Caso não haja vizinhos
+    }
+
     public void buscaEmLargura(int vertice) {
         Map<Integer, Integer> num = new HashMap<>();
         Map<Integer, Integer> pa = new HashMap<>();

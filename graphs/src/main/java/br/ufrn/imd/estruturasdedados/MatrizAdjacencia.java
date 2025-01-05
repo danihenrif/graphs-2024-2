@@ -1,6 +1,6 @@
 package br.ufrn.imd.estruturasdedados;
 
-import br.ufrn.imd.util.GrafoUtils;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
 import java.util.*;
 

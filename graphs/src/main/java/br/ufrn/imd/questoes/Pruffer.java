@@ -1,7 +1,7 @@
 package br.ufrn.imd.questoes;
 
 import br.ufrn.imd.estruturasdedados.MatrizAdjacencia;
-import br.ufrn.imd.util.GrafoUtils;
+import br.ufrn.imd.questoes.util.GrafoUtils;
 
 import java.util.List;
 
@@ -17,7 +17,5 @@ public class Pruffer {
         System.out.println("Código de Prüffer:");
         System.out.println(prufferCode);
     }
-
-
 
 }

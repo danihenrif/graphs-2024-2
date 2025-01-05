@@ -14,6 +14,7 @@ public class Digrafo3 {
         System.out.println(formatarRepresentacaoGrafo(listaAdjacenciaConverter.toString()));
 
         GrafoUtils.imprimirSubcabecalho("Busca em profundidade com determinação de profundidade do digrafo 3: ");
+        System.out.println("Iniciando do vértice 0:");
         digrafo3.getListaAdjacencia().buscaEmProfundidadeComDeterminação(0);
     }
 }
